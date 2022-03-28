@@ -10,7 +10,7 @@ import { Product } from './product.entity';
 
 @Entity()
 export class ProductImage extends CustomBaseEntity {
-  @ManyToOne({ primary: true })
+  @ManyToOne(() => Product, { primary: true })
   product!: Product;
 
   @PrimaryKey()

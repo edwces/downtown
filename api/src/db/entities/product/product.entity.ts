@@ -22,7 +22,7 @@ export class Product extends CustomBaseEntity {
   @Property()
   price!: number;
 
-  @ManyToOne()
+  @ManyToOne(() => ProductCategory)
   category!: ProductCategory;
 
   @OneToMany(() => ProductImage, (pimage) => pimage.product, {
