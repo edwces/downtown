@@ -15,4 +15,8 @@ export default {
     path: 'dist/db/migrations',
     pathTs: 'src/db/migrations',
   },
+  seeder: {
+    pathTs: 'src/db/seeder',
+    path: 'dist/db/seeder',
+  },
 } as Options;
