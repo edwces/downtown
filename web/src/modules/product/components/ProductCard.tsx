@@ -1,15 +1,15 @@
-import { AspectRatio, Button, Card, Space, Text, Title } from '@mantine/core';
+import { Button, Card, Space, Text } from '@mantine/core';
 import Image from 'next/image';
 import React from 'react';
 
 interface ProductCardProps {
-  imageUrl?: string;
+  image: string;
   name: string;
   price: number;
 }
 
 function ProductCard(props: ProductCardProps) {
-  const { imageUrl, name, price } = props;
+  const { image, name, price } = props;
 
   return (
     <div>
