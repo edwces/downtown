@@ -3,6 +3,7 @@ import { Product } from '../../db/entities/product/product.entity';
 
 export const getProduct = async (request: Request, response: Response) => {
   const productArray = await request.em.find(Product, {});
+
   response.json(productArray);
 };
 
@@ -14,7 +15,7 @@ export const getProductById = async (request: Request, response: Response) => {
 };
 
 export const createProduct = async (request: Request, response: Response) => {
-  const ProductDTO = request.body;
+  response.json(request.body);
 };
 
 export const deleteProductById = async (

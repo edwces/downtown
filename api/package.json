@@ -47,10 +47,12 @@
   "dependencies": {
     "@mikro-orm/core": "^5.1.1",
     "@mikro-orm/postgresql": "^5.1.1",
+    "body-parser": "^1.19.2",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "reflect-metadata": "^0.1.13",
-    "stripe": "^8.212.0"
+    "stripe": "^8.212.0",
+    "yup": "^0.32.11"
   }
 }

@@ -1,4 +1,5 @@
 import { MikroORM, RequestContext } from '@mikro-orm/core';
+import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
 import mikroOrmConfig from './config/mikro-orm.config';
@@ -12,6 +13,7 @@ export default async function createApp() {
 
   // Attach middlewares
   app.use(cors({ origin: '*' }));
+  app.use(bodyParser.json());
   app.use((request, response, next) => {
     // Forks new entity manager each requests
     // and run it in asyncLocalStorage
