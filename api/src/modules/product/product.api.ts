@@ -1,18 +1,18 @@
 import { Router } from 'express';
-import validate from '../../middleware/validate.middleware';
 import {
   createProduct,
   deleteProductById,
   getProduct,
   getProductById,
+  updateProductById,
 } from './product.controller';
-import createProductSchema from './validators/create-product.validation';
 
 const product = Router();
 
 product.get('/', getProduct);
 product.get('/:id', getProductById);
-product.post('/', validate(createProductSchema), createProduct);
+product.post('/', createProduct);
 product.delete('/:id', deleteProductById);
+product.put('/:id', updateProductById);
 
 export default product;
