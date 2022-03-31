@@ -16,9 +16,7 @@ export const getProductById = async (request: Request, response: Response) => {
   // return product
   const productId = Number.parseInt(request.params.id!);
   try {
-    const productFound = await request.em.findOneOrFail(Product, {
-      id: productId,
-    });
+    const productFound = await request.em.findOneOrFail(Product, productId);
 
     response.json(productFound);
   } catch {
@@ -52,9 +50,7 @@ export const deleteProductById = async (
 
   const productId = Number.parseInt(request.params.id!);
   try {
-    const productReference = await request.em.findOneOrFail(Product, {
-      id: productId,
-    });
+    const productReference = await request.em.findOneOrFail(Product, productId);
     await request.em.remove(productReference).flush();
     response.json({ succes: true });
   } catch {
@@ -78,9 +74,7 @@ export const updateProductById = async (
   const productId = Number.parseInt(request.params.id!);
   const productUpdateDTO = request.body;
   try {
-    const productReference = await request.em.findOneOrFail(Product, {
-      id: productId,
-    });
+    const productReference = await request.em.findOneOrFail(Product, productId);
 
     const updatedProduct = wrap(productReference).assign(productUpdateDTO);
     await request.em.persistAndFlush(updatedProduct);
