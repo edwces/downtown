@@ -12,15 +12,18 @@ export const getProduct = async (request: Request, response: Response) => {
 export const getProductById = async (request: Request, response: Response) => {
   // get id params as integer
   // find that product using id param
-  // throw error if it has not been found
+  // catch error if it has not been found and return NotFound
   // return product
   const productId = Number.parseInt(request.params.id!);
-  const productFound = await request.em.findOne(Product, {
-    id: productId,
-  });
-  if (!productFound) throw new Error('Product has not been found');
+  try {
+    const productFound = await request.em.findOneOrFail(Product, {
+      id: productId,
+    });
 
-  response.json(productFound);
+    response.json(productFound);
+  } catch {
+    response.sendStatus(404);
+  }
 };
 
 export const createProduct = async (request: Request, response: Response) => {
@@ -42,19 +45,21 @@ export const deleteProductById = async (
 ) => {
   // get id param
   // find entity by id
-  // throw error if it has not been found
+  // catch error if it has not been found and return NotFound
   // delete that product using found reference
   // flush changes to database
   // return true
 
   const productId = Number.parseInt(request.params.id!);
-
-  const productReference = await request.em.findOne(Product, { id: productId });
-  if (!productReference) throw new Error('Product was not found');
-
-  await request.em.remove(productReference).flush();
-
-  response.json({ succes: true });
+  try {
+    const productReference = await request.em.findOneOrFail(Product, {
+      id: productId,
+    });
+    await request.em.remove(productReference).flush();
+    response.json({ succes: true });
+  } catch {
+    response.sendStatus(404);
+  }
 };
 
 export const updateProductById = async (
@@ -64,7 +69,7 @@ export const updateProductById = async (
   // Get param id as integer
   // Get product new data
   // Find entity by id
-  // throw error if entity not found
+  // catch error if entity not found and return NOTFOUND
   // wrap entity in a helper
   // update entity fields
   // flush commit to database
@@ -72,12 +77,16 @@ export const updateProductById = async (
 
   const productId = Number.parseInt(request.params.id!);
   const productUpdateDTO = request.body;
+  try {
+    const productReference = await request.em.findOneOrFail(Product, {
+      id: productId,
+    });
 
-  const productReference = await request.em.findOne(Product, { id: productId });
-  if (!productReference) throw new Error('Product was not found');
+    const updatedProduct = wrap(productReference).assign(productUpdateDTO);
+    await request.em.persistAndFlush(updatedProduct);
 
-  const updatedProduct = wrap(productReference).assign(productUpdateDTO);
-  await request.em.persistAndFlush(updatedProduct);
-
-  response.json(updatedProduct);
+    response.json(updatedProduct);
+  } catch {
+    response.sendStatus(404);
+  }
 };
