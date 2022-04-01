@@ -16,9 +16,9 @@ function ProductGrid({ data }: ProductGridProps) {
       cols={2}
       spacing="xs"
       breakpoints={[
-        { minWidth: 1280, cols: 4, spacing: 'lg' },
-        { minWidth: 770, cols: 3, spacing: 'md' },
-        { minWidth: 600, cols: 3, spacing: 'sm' },
+        { minWidth: 1280, cols: 4, spacing: 'xl' },
+        { minWidth: 770, cols: 3, spacing: 'lg' },
+        { minWidth: 600, cols: 3, spacing: 'md' },
       ]}
     >
       {data.map((product) => (
@@ -26,7 +26,7 @@ function ProductGrid({ data }: ProductGridProps) {
           key={product.id}
           name={product.name}
           price={product.price}
-          image={product.images[0].url}
+          image={product.image}
         />
       ))}
     </SimpleGrid>

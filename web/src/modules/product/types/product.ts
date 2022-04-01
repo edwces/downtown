@@ -1,8 +1,8 @@
-import { BaseEntity } from '@/types';
+import { BaseEntity } from '../../../types';
 
 export interface Product extends BaseEntity {
   id: number;
-  images: ProductImage[];
+  image: string;
   name: string;
   price: number;
   category: ProductCategory;
@@ -11,9 +11,4 @@ export interface Product extends BaseEntity {
 export interface ProductCategory extends BaseEntity {
   id: number;
   name: string;
-}
-
-export interface ProductImage extends BaseEntity {
-  url: string;
-  index: number;
 }
