@@ -1,15 +1,9 @@
-import {
-  Cascade,
-  Collection,
-  Entity,
-  ManyToOne,
-  OneToMany,
-  PrimaryKey,
-  Property,
-} from '@mikro-orm/core';
+import { Entity, ManyToOne, PrimaryKey, Property } from '@mikro-orm/core';
 import { CustomBaseEntity } from '../common/base.entity';
 import { ProductCategory } from './product-category.entity';
-import { ProductImage } from './product-image.entity';
+
+// check if image is an url
+// check if price is non negative
 
 @Entity()
 export class Product extends CustomBaseEntity {
@@ -25,8 +19,6 @@ export class Product extends CustomBaseEntity {
   @ManyToOne(() => ProductCategory)
   category!: ProductCategory;
 
-  @OneToMany(() => ProductImage, (pimage) => pimage.product, {
-    cascade: [Cascade.ALL],
-  })
-  images = new Collection<ProductImage>(this);
+  @Property()
+  image!: string;
 }

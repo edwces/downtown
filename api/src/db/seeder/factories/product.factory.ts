@@ -8,6 +8,7 @@ export class ProductFactory extends Factory<Product> {
     return {
       name: faker.commerce.productName(),
       price: Number.parseInt(faker.commerce.price(10, 100)),
+      image: faker.image.fashion(640, 480, true),
     };
   }
 }

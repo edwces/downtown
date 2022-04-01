@@ -11,6 +11,7 @@
     "build:tsc": "tsc",
     "build:lint": "eslint src",
     "build:format": "prettier src --write",
+    "db:fresh": "yarn mikro-orm schema:fresh --run --seed",
     "test": "yarn test:unit && yarn test:e2e",
     "test:unit": "jest src",
     "test:e2e": "jest e2e"
