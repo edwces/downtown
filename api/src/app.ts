@@ -4,6 +4,7 @@ import cors from 'cors';
 import express from 'express';
 import mikroOrmConfig from './config/mikro-orm.config';
 import { productRouter } from './modules/product';
+import { userRouter } from './modules/user';
 
 export default async function createApp() {
   const app = express();
@@ -25,6 +26,7 @@ export default async function createApp() {
 
   // Register HTTP Infrastructure
   app.use('/product', productRouter);
+  app.use('/user', userRouter);
 
   return app;
 }
