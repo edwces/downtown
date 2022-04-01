@@ -9,13 +9,16 @@ interface ProductCardProps {
 }
 
 function ProductCard(props: ProductCardProps) {
+  // Get basic image props
+  // schowcase them in mantine card
+  // when hovering on image show other image
   const { image, name, price } = props;
 
   return (
     <div>
       <Card shadow="md" p="lg">
         <Card.Section>
-          <Image src="" alt="shirt" width={340} height={600} />
+          <Image src={image} alt="shirt" width={340} height={600} />
         </Card.Section>
         <Space h="lg" />
         <Text weight={300}>{name}</Text>
