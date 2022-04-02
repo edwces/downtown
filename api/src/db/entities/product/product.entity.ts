@@ -1,5 +1,6 @@
 import {
   Check,
+  DecimalType,
   Entity,
   ManyToOne,
   PrimaryKey,
@@ -20,7 +21,7 @@ export class Product extends CustomBaseEntity {
   @Property()
   name!: string;
 
-  @Property()
+  @Property({ type: DecimalType, scale: 2, precision: 10 })
   price!: number;
 
   @ManyToOne(() => ProductCategory)
