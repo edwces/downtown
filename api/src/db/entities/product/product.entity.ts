@@ -1,17 +1,19 @@
 import {
-  Cascade,
-  Collection,
+  Check,
+  DecimalType,
   Entity,
   ManyToOne,
-  OneToMany,
   PrimaryKey,
   Property,
 } from '@mikro-orm/core';
 import { CustomBaseEntity } from '../common/base.entity';
 import { ProductCategory } from './product-category.entity';
-import { ProductImage } from './product-image.entity';
+
+// check if image is an url
+// check if price is non negative
 
 @Entity()
+@Check({ expression: 'price > 0' })
 export class Product extends CustomBaseEntity {
   @PrimaryKey()
   id!: number;
@@ -19,14 +21,12 @@ export class Product extends CustomBaseEntity {
   @Property()
   name!: string;
 
-  @Property()
+  @Property({ type: DecimalType, scale: 2, precision: 10 })
   price!: number;
 
-  @ManyToOne()
+  @ManyToOne(() => ProductCategory)
   category!: ProductCategory;
 
-  @OneToMany(() => ProductImage, (pimage) => pimage.product, {
-    cascade: [Cascade.ALL],
-  })
-  images = new Collection<ProductImage>(this);
+  @Property()
+  image!: string;
 }

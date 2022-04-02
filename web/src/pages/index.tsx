@@ -1,8 +1,20 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { useQuery } from 'react-query';
+import axios from '../lib/axios';
 import ProductGrid from '../modules/product/components/ProductGrid';
 
 const Home: NextPage = () => {
+  // query products with front image
+  // stale data by default - refetch on new mount or window refocus
+  // if on different page(not mounted) result will be garbage collected after 5 minutes
+  // retried 3 times if error happens
+  // query more with scrolling
+  // pass them to ProductGrid
+  const { data, isLoading, error, isFetching } = useQuery('products', () =>
+    axios.get('/product').then((response) => response.data)
+  );
+
   return (
     <div>
       <Head>
@@ -12,7 +24,8 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <ProductGrid />
+        <h1>Hello</h1>
+        {isLoading ? undefined : <ProductGrid data={data} />}
       </main>
     </div>
   );

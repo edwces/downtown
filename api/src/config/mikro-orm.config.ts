@@ -1,6 +1,4 @@
 import { Options } from '@mikro-orm/core';
-import { ProductImage } from '../db/entities/product/product-image.entity';
-import { Product } from '../db/entities/product/product.entity';
 import environment from './environment';
 
 export default {
@@ -13,4 +11,12 @@ export default {
   debug: true,
   entities: ['dist/**/*.entity.js'],
   entitiesTs: ['src/**/*.entity.ts'],
+  migrations: {
+    path: 'dist/db/migrations',
+    pathTs: 'src/db/migrations',
+  },
+  seeder: {
+    pathTs: 'src/db/seeder',
+    path: 'dist/db/seeder',
+  },
 } as Options;
