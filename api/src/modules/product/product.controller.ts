@@ -3,9 +3,20 @@ import { Request, Response } from 'express';
 import { Product } from '../../db/entities/product/product.entity';
 
 export const getProduct = async (request: Request, response: Response) => {
+  // get query string sort_by
+  // get query string order
+  // if both are not undefined together parse orderBy into object
   // get All products from product table
   // return them using json format
-  const productArray = await request.em.find(Product, {});
+  const sortElement = request.query.sort_by;
+  const order = request.query.order;
+
+  let orderBy = {};
+  if (sortElement && order) {
+    orderBy = { [String(sortElement)]: order };
+  }
+
+  const productArray = await request.em.find(Product, {}, { orderBy });
   response.json(productArray);
 };
 

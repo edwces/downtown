@@ -1,8 +1,10 @@
 import { AppShell, Header, Navbar, Text, Title } from '@mantine/core';
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { useState } from 'react';
 import { useQuery } from 'react-query';
 import axios from '../lib/axios';
+import ProductFilters from '../modules/product/components/ProductFilters';
 import ProductGrid from '../modules/product/components/ProductGrid';
 
 const Home: NextPage = () => {
@@ -14,9 +16,22 @@ const Home: NextPage = () => {
   // retried 3 times if error happens
   // query more with scrolling
   // pass them to ProductGrid
-  const { data, isLoading, error, isFetching } = useQuery('products', () =>
-    axios.get('/product').then((response) => response.data)
+  const [filter, setFilter] = useState({ sort_by: '', order: '' });
+  const { data, isLoading, error, isFetching } = useQuery(
+    ['products', filter],
+    () =>
+      axios
+        .get(`/product?sort_by=${filter.sort_by}&order=${filter.order}`)
+        .then((response) => response.data)
   );
+
+  const applyFilter = (value: string) => {
+    const [element, order] = value.split(':');
+    setFilter({
+      sort_by: element,
+      order: order,
+    });
+  };
 
   return (
     <div>
@@ -40,6 +55,7 @@ const Home: NextPage = () => {
         }
       >
         <Title sx={{ marginBottom: 20 }}>Products</Title>
+        <ProductFilters onChange={applyFilter} />
         {isLoading ? undefined : <ProductGrid data={data} />}
       </AppShell>
     </div>
