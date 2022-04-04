@@ -12,7 +12,7 @@ const Home: NextPage = () => {
   // Navbar with links to other products
   // query products with front image
   // stale data by default - refetch on new mount or window refocus
-  // if on different page(not mounted) result will be garbage collected after 5 minutes
+  // if query is not used result will be garbage collected after 5 minutes
   // retried 3 times if error happens
   // query more with scrolling
   // pass them to ProductGrid
