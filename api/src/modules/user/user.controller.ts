@@ -1,5 +1,5 @@
-import { Embeddable, wrap } from '@mikro-orm/core';
-import { request, Request, Response } from 'express';
+import { wrap } from '@mikro-orm/core';
+import { Request, Response } from 'express';
 import { User } from '../../db/entities/user/user.entity';
 import { HTTP_STATUS } from '../../types/enums';
 

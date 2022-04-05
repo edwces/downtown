@@ -1,10 +1,10 @@
-import { Button, Center, PasswordInput, TextInput } from '@mantine/core';
+import { Box, Button, Center, PasswordInput, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/hooks';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { useMutation } from 'react-query';
 import axios from '../lib/axios';
-import { UserDTO } from '../modules/user/types/userDTO';
+import { UserDTO } from '../types';
 
 const Register: NextPage = () => {
   // form with mantine
@@ -29,7 +29,7 @@ const Register: NextPage = () => {
   };
 
   return (
-    <div>
+    <Box>
       <Head>
         <title>Register your account</title>
         <meta name="Register" content="Generated with next" />
@@ -58,7 +58,7 @@ const Register: NextPage = () => {
           <Button type="submit">Submit</Button>
         </form>
       </Center>
-    </div>
+    </Box>
   );
 };
 
