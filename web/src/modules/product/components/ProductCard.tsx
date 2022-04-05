@@ -8,7 +8,7 @@ interface ProductCardProps {
   price: number;
 }
 
-function ProductCard(props: ProductCardProps) {
+export default function ProductCard(props: ProductCardProps) {
   // Get basic image props
   // schowcase them in mantine card
   // EXTRA: when hovering on image show other image
@@ -28,5 +28,3 @@ function ProductCard(props: ProductCardProps) {
     </div>
   );
 }
-
-export default ProductCard;

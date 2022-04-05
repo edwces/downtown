@@ -1,6 +1,7 @@
-import { Embeddable, wrap } from '@mikro-orm/core';
-import { request, Request, Response } from 'express';
+import { wrap } from '@mikro-orm/core';
+import { Request, Response } from 'express';
 import { User } from '../../db/entities/user/user.entity';
+import { HTTP_STATUS } from '../../types/enums';
 
 export const getUsers = async (request: Request, response: Response) => {
   // get all users from database
@@ -19,7 +20,7 @@ export const getUserById = async (request: Request, response: Response) => {
     const userFound = await request.em.findOneOrFail(User, userId);
     response.json(userFound);
   } catch {
-    response.sendStatus(404);
+    response.sendStatus(HTTP_STATUS.NOT_FOUND);
   }
 };
 
@@ -35,7 +36,7 @@ export const deleteUserById = async (request: Request, response: Response) => {
     await request.em.removeAndFlush(userFound);
     response.json({ succes: true });
   } catch {
-    response.sendStatus(404);
+    response.sendStatus(HTTP_STATUS.NOT_FOUND);
   }
 };
 
@@ -55,6 +56,6 @@ export const updateUserById = async (request: Request, response: Response) => {
     await request.em.persistAndFlush(userUpdated);
     response.json(userUpdated);
   } catch {
-    response.sendStatus(404);
+    response.sendStatus(HTTP_STATUS.NOT_FOUND);
   }
 };

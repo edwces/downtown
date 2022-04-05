@@ -7,11 +7,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={reactQueryClient}>
-      <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
-        theme={{ colorScheme: 'dark' }}
-      >
+      <MantineProvider withGlobalStyles withNormalizeCSS>
         <Component {...pageProps} />
       </MantineProvider>
       <ReactQueryDevtools />

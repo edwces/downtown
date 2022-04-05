@@ -1,11 +1,23 @@
 import { wrap } from '@mikro-orm/core';
 import { Request, Response } from 'express';
 import { Product } from '../../db/entities/product/product.entity';
+import { HTTP_STATUS } from '../../types/enums';
 
 export const getProduct = async (request: Request, response: Response) => {
+  // get query string sort_by
+  // get query string order
+  // if both are not undefined together parse orderBy into object
   // get All products from product table
   // return them using json format
-  const productArray = await request.em.find(Product, {});
+  const sortElement = request.query.sort_by;
+  const order = request.query.order;
+
+  let orderBy = {};
+  if (sortElement && order) {
+    orderBy = { [String(sortElement)]: order };
+  }
+
+  const productArray = await request.em.find(Product, {}, { orderBy });
   response.json(productArray);
 };
 
@@ -20,7 +32,7 @@ export const getProductById = async (request: Request, response: Response) => {
 
     response.json(productFound);
   } catch {
-    response.sendStatus(404);
+    response.sendStatus(HTTP_STATUS.NOT_FOUND);
   }
 };
 
@@ -34,7 +46,7 @@ export const createProduct = async (request: Request, response: Response) => {
 
   await request.em.persistAndFlush(newProduct);
 
-  response.json(newProduct);
+  response.status(HTTP_STATUS.CREATED).json(newProduct);
 };
 
 export const deleteProductById = async (
@@ -54,7 +66,7 @@ export const deleteProductById = async (
     await request.em.remove(productReference).flush();
     response.json({ succes: true });
   } catch {
-    response.sendStatus(404);
+    response.sendStatus(HTTP_STATUS.NOT_FOUND);
   }
 };
 
@@ -81,6 +93,6 @@ export const updateProductById = async (
 
     response.json(updatedProduct);
   } catch {
-    response.sendStatus(404);
+    response.sendStatus(HTTP_STATUS.NOT_FOUND);
   }
 };

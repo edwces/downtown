@@ -1,13 +1,13 @@
 import { SimpleGrid } from '@mantine/core';
 import React from 'react';
-import { Product } from '../types/product';
 import ProductCard from './ProductCard';
+import { Product } from '../../../types/index';
 
 interface ProductGridProps {
   data: Product[];
 }
 
-function ProductGrid({ data }: ProductGridProps) {
+export default function ProductGrid({ data }: ProductGridProps) {
   // render all products in responsive simple SimpleGrid
   // all products are rendered as productCard
 
@@ -32,5 +32,3 @@ function ProductGrid({ data }: ProductGridProps) {
     </SimpleGrid>
   );
 }
-
-export default ProductGrid;
