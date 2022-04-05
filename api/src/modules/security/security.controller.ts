@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { User } from '../../db/entities/user/user.entity';
 import argon2 from 'argon2';
+import { HTTP_STATUS } from '../../types/enums';
 
 export const registerUser = async (request: Request, response: Response) => {
   // get user credentials
@@ -10,7 +11,7 @@ export const registerUser = async (request: Request, response: Response) => {
   const userDTO = request.body;
 
   const userFound = await request.em.findOne(User, { email: userDTO.email });
-  if (userFound) return response.sendStatus(400);
+  if (userFound) return response.sendStatus(HTTP_STATUS.CONFLICT);
 
   const hashedPassword = await argon2.hash(userDTO.password);
   const newUser = request.em.create(User, {
@@ -20,5 +21,5 @@ export const registerUser = async (request: Request, response: Response) => {
 
   await request.em.persistAndFlush(newUser);
 
-  response.json({ succes: true });
+  response.status(HTTP_STATUS.CREATED).json({ succes: true });
 };
