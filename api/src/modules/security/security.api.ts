@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { registerUser } from './security.controller';
+import { loginUser, registerUser } from './security.controller';
 
 const security = Router();
 
@@ -8,6 +8,6 @@ const security = Router();
 // on login/register send jwt access
 
 security.post('/register', registerUser);
-// security.post('/login');
+security.post('/login', loginUser);
 
 export default security;

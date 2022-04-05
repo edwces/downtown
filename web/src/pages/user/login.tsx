@@ -3,27 +3,26 @@ import { useForm } from '@mantine/hooks';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { useMutation } from 'react-query';
-import axios from '../lib/axios';
-import { UserDTO } from '../types';
+import axios from '../../lib/axios';
+import { LoginDTO } from '../../types';
 
-const Register: NextPage = () => {
+const Login: NextPage = () => {
   // form with mantine
   // send mutation on submit
-  const form = useForm<UserDTO>({
+  const form = useForm<LoginDTO>({
     initialValues: {
-      name: '',
       email: '',
       password: '',
     },
   });
 
-  const mutation = useMutation<any, unknown, UserDTO>((userCredentials) =>
+  const mutation = useMutation<any, unknown, LoginDTO>((userCredentials) =>
     axios
-      .post('/security/register', userCredentials)
+      .post('/security/login', userCredentials)
       .then((response) => response.data)
   );
 
-  const onSubmit = (values: UserDTO) => {
+  const onSubmit = (values: LoginDTO) => {
     console.log(values);
     mutation.mutate(values);
   };
@@ -31,18 +30,12 @@ const Register: NextPage = () => {
   return (
     <Box>
       <Head>
-        <title>Register your account</title>
-        <meta name="Register" content="Generated with next" />
+        <title>Login with your account</title>
+        <meta name="Login" content="Generated with next" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Center>
         <form onSubmit={form.onSubmit(onSubmit)}>
-          <TextInput
-            required
-            label="Username"
-            id="username"
-            {...form.getInputProps('name')}
-          ></TextInput>
           <TextInput
             required
             label="Email"
@@ -62,4 +55,4 @@ const Register: NextPage = () => {
   );
 };
 
-export default Register;
+export default Login;

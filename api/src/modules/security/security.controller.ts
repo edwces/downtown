@@ -8,18 +8,41 @@ export const registerUser = async (request: Request, response: Response) => {
   // return if user with same email exists
   // hash password and salt it
   // save user in db
-  const userDTO = request.body;
+  const registerDTO = request.body;
 
-  const userFound = await request.em.findOne(User, { email: userDTO.email });
+  const userFound = await request.em.findOne(User, {
+    email: registerDTO.email,
+  });
   if (userFound) return response.sendStatus(HTTP_STATUS.CONFLICT);
 
-  const hashedPassword = await argon2.hash(userDTO.password);
+  const hashedPassword = await argon2.hash(registerDTO.password);
   const newUser = request.em.create(User, {
-    ...userDTO,
+    ...registerDTO,
     password: hashedPassword,
   });
 
   await request.em.persistAndFlush(newUser);
 
   response.status(HTTP_STATUS.CREATED).json({ succes: true });
+};
+
+export const loginUser = async (request: Request, response: Response) => {
+  // get LoginDTO
+  // return if user with email doesn't exist
+  // return if password is incorrect
+  // return succes
+  const loginDTO = request.body;
+
+  const userFound = await request.em.findOne(User, {
+    email: loginDTO.email,
+  });
+  if (!userFound) return response.sendStatus(HTTP_STATUS.UNAUTHORIZED);
+
+  const isPasswordCorrect = await argon2.verify(
+    userFound.password,
+    loginDTO.password
+  );
+  if (!isPasswordCorrect) return response.sendStatus(HTTP_STATUS.UNAUTHORIZED);
+
+  response.json({ succes: true });
 };
