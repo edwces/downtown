@@ -1,5 +1,6 @@
-import { AppShell, Header, Navbar, Text } from '@mantine/core';
+import { AppShell } from '@mantine/core';
 import { ReactNode } from 'react';
+import DefaultHeader from './DefaultHeader';
 
 interface AppLayoutProps {
   children: ReactNode;
@@ -7,20 +8,7 @@ interface AppLayoutProps {
 
 export default function AppLayout({ children }: AppLayoutProps) {
   return (
-    <AppShell
-      fixed
-      navbarOffsetBreakpoint="md"
-      header={
-        <Header height={60}>
-          <Text>Application Navbar</Text>
-        </Header>
-      }
-      navbar={
-        <Navbar width={{ base: 300 }} hiddenBreakpoint="md" hidden>
-          <Text>Application Navbar</Text>
-        </Navbar>
-      }
-    >
+    <AppShell fixed navbarOffsetBreakpoint="md" header={<DefaultHeader />}>
       {children}
     </AppShell>
   );
