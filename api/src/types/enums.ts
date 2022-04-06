@@ -4,4 +4,5 @@ export enum HTTP_STATUS {
   NOT_FOUND = 404,
   CONFLICT = 409,
   UNAUTHORIZED = 401,
+  FORBIDDEN = 403,
 }

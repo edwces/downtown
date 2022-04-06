@@ -1,6 +1,7 @@
 import { wrap } from '@mikro-orm/core';
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { Product } from '../../db/entities/product/product.entity';
+import ResponseError from '../../errors/response-error';
 import { HTTP_STATUS } from '../../types/enums';
 
 export const getProduct = async (request: Request, response: Response) => {
@@ -21,19 +22,21 @@ export const getProduct = async (request: Request, response: Response) => {
   response.json(productArray);
 };
 
-export const getProductById = async (request: Request, response: Response) => {
+export const getProductById = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
   // get id params as integer
   // find that product using id param
   // catch error if it has not been found and return NotFound
   // return product
   const productId = Number.parseInt(request.params.id!);
-  try {
-    const productFound = await request.em.findOneOrFail(Product, productId);
+  const productFound = await request.em.findOne(Product, productId);
+  if (!productFound)
+    return next(new ResponseError('Product not Found', HTTP_STATUS.NOT_FOUND));
 
-    response.json(productFound);
-  } catch {
-    response.sendStatus(HTTP_STATUS.NOT_FOUND);
-  }
+  response.json(productFound);
 };
 
 export const createProduct = async (request: Request, response: Response) => {
@@ -51,7 +54,8 @@ export const createProduct = async (request: Request, response: Response) => {
 
 export const deleteProductById = async (
   request: Request,
-  response: Response
+  response: Response,
+  next: NextFunction
 ) => {
   // get id param
   // find entity by id
@@ -61,18 +65,18 @@ export const deleteProductById = async (
   // return true
 
   const productId = Number.parseInt(request.params.id!);
-  try {
-    const productReference = await request.em.findOneOrFail(Product, productId);
-    await request.em.remove(productReference).flush();
-    response.json({ succes: true });
-  } catch {
-    response.sendStatus(HTTP_STATUS.NOT_FOUND);
-  }
+  const productReference = await request.em.findOne(Product, productId);
+  if (!productReference)
+    return next(new ResponseError('Product not Found', HTTP_STATUS.NOT_FOUND));
+
+  await request.em.remove(productReference).flush();
+  response.json({ succes: true });
 };
 
 export const updateProductById = async (
   request: Request,
-  response: Response
+  response: Response,
+  next: NextFunction
 ) => {
   // Get param id as integer
   // Get product new data
@@ -85,14 +89,13 @@ export const updateProductById = async (
 
   const productId = Number.parseInt(request.params.id!);
   const productUpdateDTO = request.body;
-  try {
-    const productReference = await request.em.findOneOrFail(Product, productId);
 
-    const updatedProduct = wrap(productReference).assign(productUpdateDTO);
-    await request.em.persistAndFlush(updatedProduct);
+  const productReference = await request.em.findOne(Product, productId);
+  if (!productReference)
+    return next(new ResponseError('Product not Found', HTTP_STATUS.NOT_FOUND));
 
-    response.json(updatedProduct);
-  } catch {
-    response.sendStatus(HTTP_STATUS.NOT_FOUND);
-  }
+  const updatedProduct = wrap(productReference).assign(productUpdateDTO);
+  await request.em.persistAndFlush(updatedProduct);
+
+  response.json(updatedProduct);
 };
