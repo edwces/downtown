@@ -61,6 +61,7 @@ export const loginUser = async (
     userFound.password,
     loginDTO.password
   );
+
   if (!isPasswordCorrect)
     return next(
       new ResponseError(
