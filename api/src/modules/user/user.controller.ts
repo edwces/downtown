@@ -70,3 +70,19 @@ export const updateUserById = async (
   await request.em.persistAndFlush(userUpdated);
   response.json(userUpdated);
 };
+
+export const getUserCart = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  const userId = Number.parseInt(request.params.id!);
+
+  const userFound = await request.em.findOne(User, userId, {
+    populate: ['cart.products'],
+  });
+  if (!userFound)
+    return next(new ResponseError('User not Found', HTTP_STATUS.NOT_FOUND));
+
+  response.json(userFound.cart);
+};
