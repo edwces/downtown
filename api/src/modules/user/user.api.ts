@@ -5,6 +5,7 @@ import {
   getUsers,
   updateUserById,
   getUserCart,
+  addProducttoCart,
 } from './user.controller';
 
 const user = Router();
@@ -14,5 +15,6 @@ user.get('/:id', getUserById);
 user.delete('/:id', deleteUserById);
 user.put('/:id', updateUserById);
 user.get('/:id/cart', getUserCart);
+user.post('/:id/cart', addProducttoCart);
 
 export default user;
