@@ -27,7 +27,6 @@ export const getUserById = async (
     return next(new ResponseError('User not Found', HTTP_STATUS.NOT_FOUND));
 
   response.json(userFound);
-  response.sendStatus(HTTP_STATUS.NOT_FOUND);
 };
 
 export const deleteUserById = async (
