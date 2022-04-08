@@ -7,7 +7,7 @@ import axios from '../../../lib/axios';
 interface ProductCardProps {
   image: string;
   name: string;
-  price: number;
+  price: string;
   id: number;
 }
 

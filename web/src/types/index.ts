@@ -7,7 +7,7 @@ export interface Product extends BaseEntity {
   id: number;
   image: string;
   name: string;
-  price: number;
+  price: string;
   category: ProductCategory;
 }
 
