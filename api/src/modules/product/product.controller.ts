@@ -8,11 +8,13 @@ export const getProduct = async (request: Request, response: Response) => {
   const sortColumn = request.query.sort_by;
   const orderDirection = request.query.order;
 
-  let orderBy = {};
+  const qb = request.em.createQueryBuilder(Product, 'p').select('p.*');
+
   if (sortColumn && orderDirection) {
-    orderBy = { [String(sortColumn)]: orderDirection };
+    qb.orderBy({ [String(sortColumn)]: orderDirection });
   }
-  const products = await request.em.find(Product, {}, { orderBy });
+
+  const products = await qb.getResult();
 
   response.json(products);
 };

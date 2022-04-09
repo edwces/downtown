@@ -1,9 +1,9 @@
-import { Connection, EntityManager, IDatabaseDriver } from '@mikro-orm/core';
+import { EntityManager } from '@mikro-orm/postgresql';
 
 declare global {
   namespace Express {
     interface Request {
-      em: EntityManager<IDatabaseDriver<Connection>>;
+      em: EntityManager;
     }
   }
 }

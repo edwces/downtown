@@ -1,4 +1,4 @@
-import { EntityManager } from '@mikro-orm/core';
+import { EntityManager } from '@mikro-orm/postgresql';
 import { Product } from '../../db/entities/product/product.entity';
 import ResponseError from '../../errors/response-error';
 import { HTTP_STATUS } from '../../types/enums';
