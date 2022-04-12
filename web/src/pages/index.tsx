@@ -7,6 +7,7 @@ import axios from '../lib/axios';
 import AppLayout from '../modules/layout/AppLayout';
 import ProductFilters from '../modules/product/components/ProductFilters';
 import ProductGrid from '../modules/product/components/ProductGrid';
+import useMe from '../modules/user/store/useMe';
 
 const Home: NextPage = () => {
   // Header with logo
