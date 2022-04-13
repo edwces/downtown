@@ -3,19 +3,19 @@ import axios from '../../../lib/axios';
 import { Product } from '../../../types';
 
 export interface ProductsFilterQuery {
-  sort?: string;
-  order?: 'asc' | 'desc';
+  sort: string | null;
+  order: 'asc' | 'desc' | null;
 }
 
-type Products = ReadonlyArray<Product>;
+export type Products = ReadonlyArray<Product>;
 
 // QueryFn
 const fetchProducts = async (
   filters: ProductsFilterQuery
 ): Promise<Products> => {
-  const reponse = await axios.get(
-    `/product?sort_by=${filters.sort}&order=${filters.order}`
-  );
+  const reponse = await axios.get('/product', {
+    params: { sort_by: filters.sort, order: filters.order },
+  });
   return reponse.data;
 };
 
