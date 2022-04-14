@@ -1,18 +1,36 @@
 import { Button, Card, Space, Text } from '@mantine/core';
 import Image from 'next/image';
 import React from 'react';
+import { useMutation } from 'react-query';
+import axios from '../../../lib/axios';
 
 interface ProductCardProps {
   image: string;
   name: string;
-  price: number;
+  price: string;
+  id: number;
 }
 
 export default function ProductCard(props: ProductCardProps) {
   // Get basic image props
   // schowcase them in mantine card
+  // on click add to cart via mutation
+  // get userId from userstore
   // EXTRA: when hovering on image show other image
-  const { image, name, price } = props;
+  // ? maybe i should move useMutation hook up one level
+  const { image, name, price, id } = props;
+  const mutation = useMutation<
+    any,
+    unknown,
+    { userId: number; productId: number }
+  >(({ userId, productId }) =>
+    axios
+      .post(`/user/${userId}/cart`, { productId })
+      .then((response) => response.data)
+  );
+
+  // ! Hardcoded userId here
+  const onClick = () => mutation.mutate({ productId: id, userId: 5 });
 
   return (
     <div>
@@ -23,7 +41,9 @@ export default function ProductCard(props: ProductCardProps) {
         <Space h="lg" />
         <Text weight={300}>{name}</Text>
         <Text weight={500}>{price}</Text>
-        <Button fullWidth>Get Now</Button>
+        <Button onClick={onClick} fullWidth>
+          Get Now
+        </Button>
       </Card>
     </div>
   );

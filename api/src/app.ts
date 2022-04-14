@@ -1,4 +1,5 @@
 import { MikroORM, RequestContext } from '@mikro-orm/core';
+import { EntityManager } from '@mikro-orm/postgresql';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
@@ -20,7 +21,7 @@ export default async function createApp() {
     // Forks new entity manager each requests
     // and run it in asyncLocalStorage
     RequestContext.create(orm.em, () => {
-      request.em = orm.em;
+      request.em = orm.em as EntityManager;
       next();
     });
   });

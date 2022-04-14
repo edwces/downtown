@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "start:dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint src",
     "format": "prettier src"
   },
   "dependencies": {
-    "@mantine/core": "^4.0.8",
+    "@mantine/core": "^4.1.2",
     "@mantine/form": "^4.1.2",
     "@mantine/hooks": "^4.0.8",
     "@mantine/next": "^4.0.8",
@@ -19,7 +19,8 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-query": "^3.34.18",
-    "tabler-icons-react": "^1.44.0"
+    "tabler-icons-react": "^1.44.0",
+    "zustand": "^3.7.2"
   },
   "devDependencies": {
     "@types/node": "17.0.23",

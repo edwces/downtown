@@ -640,15 +640,14 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@mantine/core@^4.0.8":
-  version "4.0.8"
-  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-4.0.8.tgz#f870df4f78e8d40a33d573aaee895cc75f800f32"
-  integrity sha512-AjiTWYn4MvFIvPZeaEg8yWNicaE8Qus0Sqmpj/wFsuTcd2pDz/duZqqt6476q6uNRU7Satoog5QpI9FpT/FPXg==
+"@mantine/core@^4.1.2":
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-4.1.2.tgz#741bb313ebf4cbbe0b6802aa29f5beb4a1f7296f"
+  integrity sha512-7P3dhcTkA6zod7L9kSlIpEr4IcHX31LqFetbmoD/q8TqxBVBS2ckNYTwQaH5o446j2ORKrPZ0r28xBCI+lib8Q==
   dependencies:
-    "@mantine/styles" "4.0.8"
+    "@mantine/styles" "4.1.2"
     "@popperjs/core" "^2.9.3"
     "@radix-ui/react-scroll-area" "^0.1.1"
-    clsx "^1.1.1"
     react-popper "^2.2.5"
     react-textarea-autosize "^8.3.2"
 
@@ -687,6 +686,18 @@
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/@mantine/styles/-/styles-4.0.8.tgz#bfe7e8dda1daf031d95d999f02ccb6a099674487"
   integrity sha512-DRS7F/GZmXEwhv3QwZDSFSA+/bK2Q8ohIrw/oroCY6yKkniFLwOIngTnhm9njrNYmfOz5r02VTppH4577yWvaQ==
+  dependencies:
+    "@emotion/cache" "^11.7.1"
+    "@emotion/react" "^11.7.1"
+    "@emotion/serialize" "^1.0.2"
+    "@emotion/utils" "^1.0.0"
+    clsx "^1.1.1"
+    csstype "^3.0.9"
+
+"@mantine/styles@4.1.2":
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/@mantine/styles/-/styles-4.1.2.tgz#81440bb8fc72fb3d05df1e7779d8326d2c6c297f"
+  integrity sha512-HcBrmKzEV7jbBBxicnHUl/Ol/eS5hrZ4lt4hpoi/yD/VVx0BHolK4LkiHCvoh9vFHHN2o9gQo236LgHbqYMEGA==
   dependencies:
     "@emotion/cache" "^11.7.1"
     "@emotion/react" "^11.7.1"
@@ -4782,3 +4793,8 @@ yargs@^16.2.0:
     string-width "^4.2.0"
     y18n "^5.0.5"
     yargs-parser "^20.2.2"
+
+zustand@^3.7.2:
+  version "3.7.2"
+  resolved "https://registry.yarnpkg.com/zustand/-/zustand-3.7.2.tgz#7b44c4f4a5bfd7a8296a3957b13e1c346f42514d"
+  integrity sha512-PIJDIZKtokhof+9+60cpockVOq05sJzHCriyvaLBmEJixseQ1a5Kdov6fWZfWOu5SK9c+FhH1jU0tntLxRJYMA==

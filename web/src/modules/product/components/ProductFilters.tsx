@@ -1,10 +1,14 @@
 import { Group, Select } from '@mantine/core';
+import useFilters from '../../../store/useFilters';
 
-interface ProductFiltersProps {
-  onChange: (value: string) => void;
-}
+export default function ProductFilters() {
+  const { update } = useFilters();
 
-export default function ProductFilters({ onChange }: ProductFiltersProps) {
+  const applyFilter = (value: string) => {
+    const [sort, order] = value.split(':');
+    update({ sort, order: order as 'asc' | 'desc' | null });
+  };
+
   return (
     <Group sx={{ marginBottom: 20 }}>
       <Select
@@ -14,7 +18,7 @@ export default function ProductFilters({ onChange }: ProductFiltersProps) {
           { value: 'price:asc', label: 'lowest price' },
           { value: 'created_at:asc', label: 'newest' },
         ]}
-        onChange={onChange}
+        onChange={applyFilter}
       />
     </Group>
   );

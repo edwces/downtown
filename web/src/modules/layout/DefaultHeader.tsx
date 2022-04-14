@@ -1,4 +1,5 @@
 import { ActionIcon, Group, Header, Title } from '@mantine/core';
+import Link from 'next/link';
 import { useState } from 'react';
 import { ShoppingCart } from 'tabler-icons-react';
 
@@ -16,9 +17,11 @@ export default function DefaultHeader() {
         <Title>Downtown</Title>
       </Group>
       <Group spacing="sm" pr="md">
-        <ActionIcon size="xl" variant="filled">
-          <ShoppingCart />
-        </ActionIcon>
+        <Link href="/checkout" passHref>
+          <ActionIcon size="xl" variant="filled">
+            <ShoppingCart />
+          </ActionIcon>
+        </Link>
       </Group>
     </Header>
   );

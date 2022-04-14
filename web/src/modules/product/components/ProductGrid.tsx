@@ -1,10 +1,10 @@
 import { SimpleGrid } from '@mantine/core';
 import React from 'react';
 import ProductCard from './ProductCard';
-import { Product } from '../../../types/index';
+import { Products } from '../hooks/useProducts';
 
 interface ProductGridProps {
-  data: Product[];
+  data: Products;
 }
 
 export default function ProductGrid({ data }: ProductGridProps) {
@@ -24,6 +24,7 @@ export default function ProductGrid({ data }: ProductGridProps) {
       {data.map((product) => (
         <ProductCard
           key={product.id}
+          id={product.id}
           name={product.name}
           price={product.price}
           image={product.image}
