@@ -7,15 +7,9 @@ import ProductGrid from '../modules/product/components/ProductGrid';
 import useProducts from '../modules/product/hooks/useProducts';
 import useFilters from '../store/useFilters';
 
+// TODO: Move useFilters and useProducts to Product container
+// TODO: This will decrease performence when selecting filter
 const Home: NextPage = () => {
-  // Header with logo
-  // Navbar with links to other products
-  // query products with front image
-  // stale data by default - refetch on new mount or window refocus
-  // if query is not used result will be garbage collected after 5 minutes
-  // retried 3 times if error happens
-  // query more with scrolling
-  // pass them to ProductGrid
   const { filters } = useFilters();
   const { isLoading, data } = useProducts(filters);
 

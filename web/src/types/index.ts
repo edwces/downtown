@@ -15,11 +15,3 @@ export interface ProductCategory extends BaseEntity {
   id: number;
   name: string;
 }
-
-export interface RegisterDTO {
-  email: string;
-  name: string;
-  password: string;
-}
-
-export type LoginDTO = Omit<RegisterDTO, 'name'>;
