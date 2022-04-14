@@ -1,9 +1,9 @@
-import { Product } from '../../../types';
 import CheckoutCard from './CheckoutCard';
 import { Stack } from '@mantine/core';
+import { Products } from '../hooks/useProducts';
 
 interface CheckoutListProps {
-  data: Product[];
+  data: Products;
 }
 
 export default function CheckoutList({ data }: CheckoutListProps) {
