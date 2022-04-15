@@ -4,10 +4,10 @@ import ProductCard from './ProductCard';
 import { Products } from '../hooks/useProducts';
 
 interface ProductGridProps {
-  data: Products;
+  data?: Products;
 }
 
-export default function ProductGrid({ data }: ProductGridProps) {
+export default function ProductGrid({ data = [] }: ProductGridProps) {
   // render all products in responsive simple SimpleGrid
   // all products are rendered as productCard
 

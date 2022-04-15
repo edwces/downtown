@@ -110,9 +110,9 @@ export const addProducttoCart = async (
 
   const productReference = request.em.getReference(Product, productId);
 
-  userFound.cart.products.add(productReference);
+  userFound.cart!.products.add(productReference);
 
-  await request.em.persistAndFlush(userFound.cart);
+  await request.em.persistAndFlush(userFound.cart!);
 
   response.json(userFound);
 };

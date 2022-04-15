@@ -3,10 +3,10 @@ import { Stack } from '@mantine/core';
 import { Products } from '../hooks/useProducts';
 
 interface CheckoutListProps {
-  data: Products;
+  data?: Products;
 }
 
-export default function CheckoutList({ data }: CheckoutListProps) {
+export default function CheckoutList({ data = [] }: CheckoutListProps) {
   return (
     <Stack>
       {data.map((product) => (
