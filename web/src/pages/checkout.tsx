@@ -4,12 +4,13 @@ import { NextPage } from 'next/types';
 import AppLayout from '../modules/layout/AppLayout';
 import CheckoutList from '../modules/product/components/CheckoutList';
 import useCart from '../modules/user/hooks/useCart';
+import useMe from '../store/useMe';
 
 const Checkout: NextPage = () => {
   // get all products from user cart
   // fallback to localstorage
-  // ! Hardcoded user id
-  const { isLoading, data } = useCart(5);
+  const { user } = useMe();
+  const { isLoading, data } = useCart(user!.id);
 
   return (
     <Box>

@@ -14,7 +14,14 @@ function MyApp({ Component, pageProps }: AppProps) {
   const { login } = useMe();
 
   useEffect(() => {
-    if (token) login(token);
+    const fetchMe = async () => {
+      if (!token) return null;
+      const response = await axios.get('/security/me', {
+        headers: { Authorization: 'Bearer ' + token },
+      });
+      login(token, response.data);
+    };
+    fetchMe();
   }, [token]);
 
   return (

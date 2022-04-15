@@ -1,14 +1,19 @@
 import { useLocalStorage } from '@mantine/hooks';
 import { useMutation } from 'react-query';
 import axios from '../../../lib/axios';
-import useMe from '../../../store/useMe';
+import useMe, { UserContext } from '../../../store/useMe';
 
 export interface LoginDTO {
   email: string;
   password: string;
 }
 
-const postLogin = async (credentials: LoginDTO): Promise<string> => {
+interface LoginResponse {
+  token: string;
+  user: UserContext;
+}
+
+const postLogin = async (credentials: LoginDTO): Promise<LoginResponse> => {
   const response = await axios.post('/security/login', credentials);
   return response.data;
 };
@@ -18,8 +23,8 @@ const useLoginMutation = () => {
   const { login } = useMe();
   return useMutation((values: LoginDTO) => postLogin(values), {
     onSuccess: (data) => {
-      setKey(data);
-      login(data);
+      setKey(data.token);
+      login(data.token, data.user);
     },
   });
 };

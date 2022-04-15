@@ -3,6 +3,7 @@ import Image from 'next/image';
 import React from 'react';
 import { useMutation } from 'react-query';
 import axios from '../../../lib/axios';
+import useMe from '../../../store/useMe';
 
 interface ProductCardProps {
   image: string;
@@ -19,6 +20,7 @@ export default function ProductCard(props: ProductCardProps) {
   // EXTRA: when hovering on image show other image
   // ? maybe i should move useMutation hook up one level
   const { image, name, price, id } = props;
+  const { user } = useMe();
   const mutation = useMutation<
     any,
     unknown,
@@ -29,8 +31,7 @@ export default function ProductCard(props: ProductCardProps) {
       .then((response) => response.data)
   );
 
-  // ! Hardcoded userId here
-  const onClick = () => mutation.mutate({ productId: id, userId: 5 });
+  const onClick = () => mutation.mutate({ productId: id, userId: user!.id });
 
   return (
     <div>

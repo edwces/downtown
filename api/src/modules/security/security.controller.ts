@@ -74,16 +74,22 @@ export const loginUser = async (
         HTTP_STATUS.UNAUTHORIZED
       )
     );
-
+  const userDetails = {
+    id: userFound.id,
+    email: userFound.email,
+    name: userFound.name,
+  };
   const token = jwt.sign(
     {
-      id: userFound.id,
-      email: userFound.email,
-      username: userFound.name,
+      ...userDetails,
       exp: Math.floor(Date.now() / 1000) + 60 * 60,
     },
     config.jwt.secret!
   );
 
-  response.send(token);
+  response.json({ token, user: userDetails });
+};
+
+export const getUserFromToken = (request: Request, response: Response) => {
+  response.json(response.locals.user);
 };
