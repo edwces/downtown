@@ -16,6 +16,6 @@ export class User extends CustomBaseEntity {
   @Property()
   password!: string;
 
-  @OneToOne(() => Cart)
-  cart!: Cart;
+  @OneToOne(() => Cart, (cart) => cart.user, { owner: true })
+  cart?: Cart;
 }

@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import { HTTP_STATUS } from '../../types/enums';
 import config from '../../config';
 import ResponseError from '../../errors/response-error';
+import { Cart } from '../../db/entities/cart/cart.entity';
 
 export const registerUser = async (
   request: Request,
@@ -28,8 +29,12 @@ export const registerUser = async (
     ...registerDTO,
     password: hashedPassword,
   });
+  const newCart = request.em.create(Cart, {
+    user: newUser,
+  });
+  newUser.cart = newCart;
 
-  await request.em.persistAndFlush(newUser);
+  await request.em.persistAndFlush([newUser, newCart]);
 
   response.status(HTTP_STATUS.CREATED).json({ succes: true });
 };
