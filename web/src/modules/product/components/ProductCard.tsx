@@ -1,4 +1,5 @@
 import { Button, Card, Space, Text } from '@mantine/core';
+import { useLocalStorage } from '@mantine/hooks';
 import Image from 'next/image';
 import React from 'react';
 import useMe from '../../../store/useMe';
@@ -13,8 +14,21 @@ interface ProductCardProps {
 
 export default function ProductCard(props: ProductCardProps) {
   const { image, name, price, id } = props;
-  const { user } = useMe();
+  const { user, status } = useMe();
   const { mutate } = useCartMutation();
+  const [cartProducts, setCartProducts] = useLocalStorage<
+    { id: number; price: string; image: string; name: string }[]
+  >({ key: 'cart_products', defaultValue: [] });
+
+  const onClick = () => {
+    if (status === 'signIn') {
+      mutate({ id: user!.id, product: id });
+    } else {
+      console.log('hello there');
+
+      setCartProducts([...cartProducts, { id, image, name, price }]);
+    }
+  };
 
   return (
     <div>
@@ -25,7 +39,7 @@ export default function ProductCard(props: ProductCardProps) {
         <Space h="lg" />
         <Text weight={300}>{name}</Text>
         <Text weight={500}>{price}</Text>
-        <Button onClick={() => mutate({ id: user!.id, product: id })} fullWidth>
+        <Button onClick={onClick} fullWidth>
           Get Now
         </Button>
       </Card>
