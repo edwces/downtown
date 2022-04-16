@@ -14,15 +14,20 @@ const FetchMe = async (token: string): Promise<UserContext> => {
   return response.data;
 };
 
+// TODO: Revalidate the token when its time run out
 export default function AuthProvider({ children }: AuthProviderProps) {
   const [token, _] = useLocalStorage({ key: 'access_token' });
-  const { login } = useMe();
+  const { login, logout } = useMe();
 
   useEffect(() => {
     const wrapper = async () => {
-      if (!token) return null;
-      const user = await FetchMe(token);
-      login(token, user);
+      if (!token) return logout();
+      try {
+        const user = await FetchMe(token);
+        login(token, user);
+      } catch {
+        logout();
+      }
     };
     wrapper();
   }, [token]);
