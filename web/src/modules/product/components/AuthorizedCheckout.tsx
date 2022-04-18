@@ -1,5 +1,5 @@
 import useMe from '../../../store/useMe';
-import useCart from '../../user/hooks/useCart';
+import useCart from '../hooks/useCart';
 import CheckoutList from './CheckoutList';
 
 export default function AuthorizedCheckout() {

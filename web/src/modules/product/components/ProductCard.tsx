@@ -5,6 +5,7 @@ import React from 'react';
 import useMe from '../../../store/useMe';
 import { deepEqual } from '../../../util/objectUtils';
 import useCartMutation from '../hooks/useCartMutation';
+import useLocalCart from '../hooks/useLocalCart';
 
 interface ProductCardProps {
   image: string;
@@ -17,12 +18,7 @@ export default function ProductCard(props: ProductCardProps) {
   const { image, name, price, id } = props;
   const { user, status } = useMe();
   const { mutate } = useCartMutation();
-  const [cartProducts, setCartProducts] = useLocalStorage<
-    {
-      quantity: number;
-      product: { id: number; price: string; image: string; name: string };
-    }[]
-  >({ key: 'cart_products', defaultValue: [] });
+  const [cartProducts, setCartProducts] = useLocalCart();
 
   // TODO: refactor on click method
   //       priority: High

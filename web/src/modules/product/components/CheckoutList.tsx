@@ -1,9 +1,10 @@
 import CheckoutCard from './CheckoutCard';
 import { Stack } from '@mantine/core';
 import { CartItems } from '../../../types';
+import { LocalCartItems } from '../hooks/useLocalCart';
 
 interface CheckoutListProps {
-  data?: CartItems;
+  data?: CartItems | LocalCartItems;
 }
 
 export default function CheckoutList({ data = [] }: CheckoutListProps) {
