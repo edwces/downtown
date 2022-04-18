@@ -1,14 +1,11 @@
 import {
   Check,
-  Collection,
   DecimalType,
   Entity,
-  ManyToMany,
   ManyToOne,
   PrimaryKey,
   Property,
 } from '@mikro-orm/core';
-import { Cart } from '../cart/cart.entity';
 import { CustomBaseEntity } from '../common/base.entity';
 import { ProductCategory } from './product-category.entity';
 
@@ -32,7 +29,4 @@ export class Product extends CustomBaseEntity {
 
   @Property()
   image!: string;
-
-  @ManyToMany(() => Cart, (cart) => cart.products)
-  carts = new Collection<Cart>(this);
 }

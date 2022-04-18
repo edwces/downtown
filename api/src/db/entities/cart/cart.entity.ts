@@ -1,13 +1,13 @@
 import {
   Collection,
   Entity,
-  ManyToMany,
+  OneToMany,
   OneToOne,
   PrimaryKey,
 } from '@mikro-orm/core';
 import { CustomBaseEntity } from '../common/base.entity';
-import { Product } from '../product/product.entity';
 import { User } from '../user/user.entity';
+import { CartItem } from './cartItem.entity';
 
 @Entity()
 export class Cart extends CustomBaseEntity {
@@ -17,6 +17,6 @@ export class Cart extends CustomBaseEntity {
   @OneToOne(() => User, (user) => user.cart)
   user!: User;
 
-  @ManyToMany(() => Product)
-  products = new Collection<Product>(this);
+  @OneToMany(() => CartItem, (cartItem) => cartItem.cart)
+  items = new Collection<CartItem>(this);
 }

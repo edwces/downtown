@@ -1,6 +1,7 @@
 import { wrap } from '@mikro-orm/core';
 import { NextFunction, Request, Response } from 'express';
-import { Product } from '../../db/entities/product/product.entity';
+import { Cart } from '../../db/entities/cart/cart.entity';
+import { CartItem } from '../../db/entities/cart/cartItem.entity';
 import { User } from '../../db/entities/user/user.entity';
 import ResponseError from '../../errors/response-error';
 import { HTTP_STATUS } from '../../types/enums';
@@ -71,6 +72,7 @@ export const updateUserById = async (
   response.json(userUpdated);
 };
 
+// TODO: Reduce load introduced by population of cartItems
 export const getUserCart = async (
   request: Request,
   response: Response,
@@ -79,7 +81,7 @@ export const getUserCart = async (
   const userId = Number.parseInt(request.params.id!);
 
   const userFound = await request.em.findOne(User, userId, {
-    populate: ['cart.products'],
+    populate: ['cart', 'cart.items', 'cart.items.product'],
   });
   if (!userFound)
     return next(new ResponseError('User not Found', HTTP_STATUS.NOT_FOUND));
@@ -102,17 +104,31 @@ export const addProducttoCart = async (
   const userId = Number.parseInt(request.params.id!);
   const productId = Number.parseInt(request.body.productId!);
 
-  const userFound = await request.em.findOne(User, userId, {
-    populate: ['cart'],
+  // get user cart
+  const cartFound = await request.em.findOne(Cart, {
+    user: userId,
   });
-  if (!userFound)
+  if (!cartFound)
     return next(new ResponseError('User not Found', HTTP_STATUS.NOT_FOUND));
 
-  const productReference = request.em.getReference(Product, productId);
+  // create cartItem if it does not exist else increase quantity
+  // we get cartItem that exist in our user cart and with the id we provided
+  let cartItem = await request.em.findOne(CartItem, {
+    cart: cartFound,
+    product: productId,
+  });
 
-  userFound.cart!.products.add(productReference);
+  if (!cartItem) {
+    cartItem = request.em.create(CartItem, {
+      quantity: 1,
+      cart: cartFound!,
+      product: productId,
+    });
+  } else {
+    wrap(cartItem).assign({ quantity: cartItem.quantity + 1 });
+  }
 
-  await request.em.persistAndFlush(userFound.cart!);
+  await request.em.persistAndFlush([cartItem, cartFound]);
 
-  response.json(userFound);
+  response.json(cartFound);
 };

@@ -1,4 +1,4 @@
-import { Box, Title } from '@mantine/core';
+import { Box, Button, Title } from '@mantine/core';
 import Head from 'next/head';
 import { NextPage } from 'next/types';
 import { useMemo } from 'react';
@@ -27,6 +27,7 @@ const Checkout: NextPage = () => {
       <AppLayout>
         <Title sx={{ marginBottom: 20 }}>Checkout</Title>
         {checkoutItems}
+        <Button fullWidth>Procced to payment</Button>
       </AppLayout>
     </Box>
   );

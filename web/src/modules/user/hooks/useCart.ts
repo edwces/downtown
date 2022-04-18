@@ -1,9 +1,9 @@
 import { useQuery } from 'react-query';
 import axios from '../../../lib/axios';
-import { Products } from '../../product/hooks/useProducts';
+import { CartItems } from '../../../types';
 
 export interface ShoppingCart {
-  products: Products;
+  items: CartItems;
 }
 
 const fetchCart = async (id: number): Promise<ShoppingCart> => {

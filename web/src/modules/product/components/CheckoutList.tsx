@@ -1,20 +1,21 @@
 import CheckoutCard from './CheckoutCard';
 import { Stack } from '@mantine/core';
-import { Products } from '../hooks/useProducts';
+import { CartItems } from '../../../types';
 
 interface CheckoutListProps {
-  data?: Products;
+  data?: CartItems;
 }
 
 export default function CheckoutList({ data = [] }: CheckoutListProps) {
   return (
     <Stack>
-      {data.map((product) => (
+      {data.map((item) => (
         <CheckoutCard
-          key={product.id}
-          name={product.name}
-          image={product.image}
-          price={product.price}
+          key={item.product.id}
+          name={item.product.name}
+          image={item.product.image}
+          price={item.product.price}
+          quantity={item.quantity}
         />
       ))}
     </Stack>

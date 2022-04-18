@@ -6,5 +6,5 @@ export default function AuthorizedCheckout() {
   const { user } = useMe();
   const { data, isLoading } = useCart(user!.id);
 
-  return <>{isLoading ? null : <CheckoutList data={data!.products} />}</>;
+  return <>{isLoading ? null : <CheckoutList data={data!.items} />}</>;
 }
