@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <MantineProvider
         withGlobalStyles
         withNormalizeCSS
-        theme={{ fontFamily: 'Inter, sans-serif', colorScheme: 'dark' }}
+        theme={{ fontFamily: 'Inter, sans-serif', colorScheme: 'light' }}
       >
         <AuthProvider>
           <Component {...pageProps} />

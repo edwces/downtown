@@ -1,9 +1,16 @@
 import { ActionIcon, Group, Header, Menu, Title } from '@mantine/core';
+import { useLocalStorage } from '@mantine/hooks';
 import { NextLink } from '@mantine/next';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { ShoppingCart, User } from 'tabler-icons-react';
+import useMe from '../../store/useMe';
 
 export default function DefaultHeader() {
+  const { logout } = useMe();
+  const router = useRouter();
+  const [token, setToken] = useLocalStorage({ key: 'access_token' });
+
   return (
     <Header
       height={60}
@@ -34,6 +41,15 @@ export default function DefaultHeader() {
           </Menu.Item>
           <Menu.Item component={NextLink} href="/user/login">
             Login
+          </Menu.Item>
+          <Menu.Item
+            onClick={() => {
+              setToken('');
+              logout();
+              router.push('/');
+            }}
+          >
+            Logout
           </Menu.Item>
         </Menu>
       </Group>
