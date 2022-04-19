@@ -16,6 +16,13 @@ export interface ProductCategory extends BaseEntity {
   name: string;
 }
 
+export interface ProductsFilterQuery {
+  sort: string | null;
+  order: 'asc' | 'desc' | null;
+}
+
+export type Products = ReadonlyArray<Product>;
+
 export interface CartItem extends BaseEntity {
   quantity: number;
   product: Product;

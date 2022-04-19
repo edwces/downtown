@@ -1,13 +1,6 @@
 import { useQuery } from 'react-query';
 import axios from '../../../lib/axios';
-import { Product } from '../../../types';
-
-export interface ProductsFilterQuery {
-  sort: string | null;
-  order: 'asc' | 'desc' | null;
-}
-
-export type Products = ReadonlyArray<Product>;
+import { Products, ProductsFilterQuery } from '../../../types';
 
 // QueryFn
 const fetchProducts = async (

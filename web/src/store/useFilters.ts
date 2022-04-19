@@ -1,17 +1,17 @@
 import create from 'zustand';
-import { ProductsFilterQuery } from '../modules/product/hooks/useProducts';
+import { ProductsFilterQuery } from '../types';
 
-interface FiltersStore {
-  filters: ProductsFilterQuery;
+interface FiltersState {
+  values: ProductsFilterQuery;
   clear: () => void;
   update: (values: Partial<ProductsFilterQuery>) => void;
 }
 
-const useFilters = create<FiltersStore>((set) => ({
-  filters: { sort: null, order: null },
-  clear: () => set({ filters: { sort: null, order: null } }),
-  update: (values) =>
-    set((state) => ({ filters: { ...state.filters, ...values } })),
+const useFilters = create<FiltersState>((set) => ({
+  values: { sort: null, order: null },
+  clear: () => set({ values: { sort: null, order: null } }),
+  update: (updatedValues) =>
+    set((state) => ({ values: { ...state.values, ...updatedValues } })),
 }));
 
 export default useFilters;
