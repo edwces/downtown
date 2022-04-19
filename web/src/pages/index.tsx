@@ -23,7 +23,7 @@ const Home: NextPage = () => {
       <AppLayout>
         <Title sx={{ marginBottom: 20 }}>Products</Title>
         <ProductFilters />
-        {isLoading ? undefined : <ProductGrid data={data!} />}
+        {isLoading ? undefined : <ProductGrid data={data} />}
       </AppLayout>
     </Box>
   );

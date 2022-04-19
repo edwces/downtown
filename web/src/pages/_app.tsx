@@ -4,6 +4,7 @@ import { QueryClientProvider } from 'react-query';
 import reactQueryClient from '../lib/react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import '../styles/global.css';
+import AuthProvider from '../modules/user/components/AuthProvider';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -11,9 +12,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       <MantineProvider
         withGlobalStyles
         withNormalizeCSS
-        theme={{ fontFamily: 'Inter, sans-serif', colorScheme: 'dark' }}
+        theme={{ fontFamily: 'Inter, sans-serif', colorScheme: 'light' }}
       >
-        <Component {...pageProps} />
+        <AuthProvider>
+          <Component {...pageProps} />
+        </AuthProvider>
       </MantineProvider>
       <ReactQueryDevtools />
     </QueryClientProvider>

@@ -1,8 +1,11 @@
 import { Button, Card, Space, Text } from '@mantine/core';
+import { useLocalStorage } from '@mantine/hooks';
 import Image from 'next/image';
 import React from 'react';
-import { useMutation } from 'react-query';
-import axios from '../../../lib/axios';
+import useMe from '../../../store/useMe';
+import { deepEqual } from '../../../util/objectUtils';
+import useCartMutation from '../hooks/useCartMutation';
+import useLocalCart from '../hooks/useLocalCart';
 
 interface ProductCardProps {
   image: string;
@@ -12,25 +15,44 @@ interface ProductCardProps {
 }
 
 export default function ProductCard(props: ProductCardProps) {
-  // Get basic image props
-  // schowcase them in mantine card
-  // on click add to cart via mutation
-  // get userId from userstore
-  // EXTRA: when hovering on image show other image
-  // ? maybe i should move useMutation hook up one level
   const { image, name, price, id } = props;
-  const mutation = useMutation<
-    any,
-    unknown,
-    { userId: number; productId: number }
-  >(({ userId, productId }) =>
-    axios
-      .post(`/user/${userId}/cart`, { productId })
-      .then((response) => response.data)
-  );
+  const { user, status } = useMe();
+  const { mutate } = useCartMutation();
+  const [cartProducts, setCartProducts] = useLocalCart();
 
-  // ! Hardcoded userId here
-  const onClick = () => mutation.mutate({ productId: id, userId: 5 });
+  // TODO: refactor on click method
+  //       priority: High
+  const onClick = () => {
+    if (status === 'signIn') {
+      mutate({ id: user!.id, product: id });
+    } else {
+      const AlreadyInCart = cartProducts.findIndex((item) => {
+        return deepEqual(item.product, { id, image, name, price })
+          ? true
+          : false;
+      });
+
+      if (AlreadyInCart !== -1) {
+        const newCartProducts = cartProducts.filter((item) => {
+          return deepEqual(item.product, { id, image, name, price })
+            ? false
+            : true;
+        });
+        setCartProducts([
+          ...newCartProducts,
+          {
+            product: { id, image, name, price },
+            quantity: cartProducts[AlreadyInCart].quantity + 1,
+          },
+        ]);
+      } else {
+        setCartProducts([
+          ...cartProducts,
+          { product: { id, image, name, price }, quantity: 1 },
+        ]);
+      }
+    }
+  };
 
   return (
     <div>

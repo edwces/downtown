@@ -1,5 +1,10 @@
 import { Router } from 'express';
-import { loginUser, registerUser } from './security.controller';
+import authenticate from '../../middleware/authenticate.middleware';
+import {
+  getUserFromToken,
+  loginUser,
+  registerUser,
+} from './security.controller';
 
 const security = Router();
 
@@ -9,5 +14,6 @@ const security = Router();
 
 security.post('/register', registerUser);
 security.post('/login', loginUser);
+security.get('/me', authenticate, getUserFromToken);
 
 export default security;

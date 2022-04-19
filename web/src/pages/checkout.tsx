@@ -1,15 +1,21 @@
-import { Box, Title } from '@mantine/core';
+import { Box, Button, Title } from '@mantine/core';
 import Head from 'next/head';
 import { NextPage } from 'next/types';
+import { useMemo } from 'react';
 import AppLayout from '../modules/layout/AppLayout';
-import CheckoutList from '../modules/product/components/CheckoutList';
-import useCart from '../modules/user/hooks/useCart';
+import AuthorizedCheckout from '../modules/product/components/AuthorizedCheckout';
+import UnauthorizedCheckout from '../modules/product/components/UnauthorizedCheckout';
+import useMe from '../store/useMe';
 
 const Checkout: NextPage = () => {
   // get all products from user cart
-  // fallback to localstorage
-  // ! Hardcoded user id
-  const { isLoading, data } = useCart(5);
+  const { status } = useMe();
+
+  const checkoutItems = useMemo(() => {
+    if (status === 'signIn') return <AuthorizedCheckout />;
+    if (status === 'signOut') return <UnauthorizedCheckout />;
+    return <div>Loading</div>;
+  }, [status]);
 
   return (
     <Box>
@@ -20,7 +26,8 @@ const Checkout: NextPage = () => {
       </Head>
       <AppLayout>
         <Title sx={{ marginBottom: 20 }}>Checkout</Title>
-        {isLoading ? undefined : <CheckoutList data={data!.products} />}
+        {checkoutItems}
+        <Button fullWidth>Procced to payment</Button>
       </AppLayout>
     </Box>
   );

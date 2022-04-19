@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import { HTTP_STATUS } from '../../types/enums';
 import config from '../../config';
 import ResponseError from '../../errors/response-error';
+import { Cart } from '../../db/entities/cart/cart.entity';
 
 export const registerUser = async (
   request: Request,
@@ -28,8 +29,12 @@ export const registerUser = async (
     ...registerDTO,
     password: hashedPassword,
   });
+  const newCart = request.em.create(Cart, {
+    user: newUser,
+  });
+  newUser.cart = newCart;
 
-  await request.em.persistAndFlush(newUser);
+  await request.em.persistAndFlush([newUser, newCart]);
 
   response.status(HTTP_STATUS.CREATED).json({ succes: true });
 };
@@ -69,16 +74,22 @@ export const loginUser = async (
         HTTP_STATUS.UNAUTHORIZED
       )
     );
-
+  const userDetails = {
+    id: userFound.id,
+    email: userFound.email,
+    name: userFound.name,
+  };
   const token = jwt.sign(
     {
-      id: userFound.id,
-      email: userFound.email,
-      username: userFound.name,
+      ...userDetails,
       exp: Math.floor(Date.now() / 1000) + 60 * 60,
     },
     config.jwt.secret!
   );
 
-  response.send(token);
+  response.json({ token, user: userDetails });
+};
+
+export const getUserFromToken = (request: Request, response: Response) => {
+  response.json(response.locals.user);
 };

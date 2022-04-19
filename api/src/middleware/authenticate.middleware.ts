@@ -20,7 +20,7 @@ export default function authenticate(
 
     response.locals.user = {
       id: decoded.id,
-      name: decoded.username,
+      name: decoded.name,
       email: decoded.email,
     };
     next();

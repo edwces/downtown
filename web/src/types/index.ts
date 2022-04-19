@@ -15,3 +15,10 @@ export interface ProductCategory extends BaseEntity {
   id: number;
   name: string;
 }
+
+export interface CartItem extends BaseEntity {
+  quantity: number;
+  product: Product;
+}
+
+export type CartItems = ReadonlyArray<CartItem>;

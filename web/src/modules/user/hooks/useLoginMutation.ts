@@ -1,13 +1,20 @@
 import { useMutation } from 'react-query';
 import axios from '../../../lib/axios';
+import { UserContext } from '../../../store/useMe';
 
 export interface LoginDTO {
   email: string;
   password: string;
 }
 
-const postLogin = async (credentials: LoginDTO): Promise<void> => {
-  await axios.post('/security/login', credentials);
+export interface LoginResponse {
+  token: string;
+  user: UserContext;
+}
+
+const postLogin = async (credentials: LoginDTO): Promise<LoginResponse> => {
+  const response = await axios.post('/security/login', credentials);
+  return response.data;
 };
 
 const useLoginMutation = () => {
