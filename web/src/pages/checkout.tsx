@@ -2,6 +2,7 @@ import { Box, Button, Title } from '@mantine/core';
 import Head from 'next/head';
 import { NextPage } from 'next/types';
 import { useMemo } from 'react';
+import axios from '../lib/axios';
 import AppLayout from '../modules/layout/AppLayout';
 import AuthorizedCheckout from '../modules/product/components/AuthorizedCheckout';
 import UnauthorizedCheckout from '../modules/product/components/UnauthorizedCheckout';
@@ -27,7 +28,6 @@ const Checkout: NextPage = () => {
       <AppLayout>
         <Title sx={{ marginBottom: 20 }}>Checkout</Title>
         {checkoutItems}
-        <Button fullWidth>Procced to payment</Button>
       </AppLayout>
     </Box>
   );

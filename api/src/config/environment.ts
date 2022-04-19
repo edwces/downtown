@@ -11,6 +11,8 @@ const {
   DB_USERNAME,
   DB_PASSWORD,
   JWT_SECRET,
+  STRIPE_SECRET,
+  STRIPE_KEY,
 } = process.env;
 
 export default {
@@ -24,5 +26,9 @@ export default {
   },
   jwt: {
     secret: JWT_SECRET,
+  },
+  stripe: {
+    secret: STRIPE_SECRET,
+    key: STRIPE_KEY,
   },
 };
