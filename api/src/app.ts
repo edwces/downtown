@@ -8,6 +8,7 @@ import { paymentRouter } from './modules/payment';
 import { productRouter } from './modules/product';
 import { securityRoutes } from './modules/security';
 import { userRouter } from './modules/user';
+import helmet from 'helmet';
 
 export default async function createApp() {
   const app = express();
@@ -18,6 +19,7 @@ export default async function createApp() {
   // Attach middlewares
   app.use(cors({ origin: '*' }));
   app.use(bodyParser.json());
+  app.use(helmet());
   app.use((request, response, next) => {
     // Forks new entity manager each requests
     // and run it in asyncLocalStorage
