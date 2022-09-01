@@ -1,22 +1,14 @@
-import { Options } from '@mikro-orm/core';
-import environment from './environment';
+import { MikroOrmModuleSyncOptions } from '@mikro-orm/nestjs';
+
+// This needs to be configured separetely from the nestjs app
+// because of mikro-orm-cli and testing
 
 export default {
   type: 'postgresql',
-  host: environment.db.host,
-  port: environment.db.port,
-  user: environment.db.username,
-  password: environment.db.password,
-  dbName: environment.db.name,
-  debug: true,
-  entities: ['dist/**/*.entity.js'],
-  entitiesTs: ['src/**/*.entity.ts'],
-  migrations: {
-    path: 'dist/db/migrations',
-    pathTs: 'src/db/migrations',
-  },
-  seeder: {
-    pathTs: 'src/db/seeder',
-    path: 'dist/db/seeder',
-  },
-} as Options;
+  entities: ['./**/*.entity.js'],
+  entitiesTs: ['./**/*.entity.ts'],
+  host: process.env['DB_HOST'],
+  password: process.env['DB_PASSWORD'],
+  user: process.env['DB_USER'],
+  dbName: process.env['DB_NAME'],
+} as MikroOrmModuleSyncOptions;
