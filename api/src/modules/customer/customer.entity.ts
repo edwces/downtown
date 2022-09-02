@@ -1,6 +1,6 @@
 import { Entity, EntityDTO, Enum, PrimaryKey, Property } from '@mikro-orm/core';
 import * as argon2 from 'argon2';
-import { Basic } from 'src/common/basic.entity';
+import { Basic } from '../../common/basic.entity';
 import { CustomerRoles } from './enums/customer-roles.enum';
 
 type CustomerProps = Pick<EntityDTO<Customer>, 'email' | 'password'>;

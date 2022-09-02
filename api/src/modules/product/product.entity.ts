@@ -1,5 +1,5 @@
 import { Entity, EntityDTO, PrimaryKey, Property } from '@mikro-orm/core';
-import { Basic } from 'src/common/basic.entity';
+import { Basic } from '../../common/basic.entity';
 
 type ProductProps = Pick<EntityDTO<Product>, 'label'>;
 
