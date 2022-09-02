@@ -1,6 +1,8 @@
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Module } from '@nestjs/common';
 import mikroOrmConfig from './config/mikro-orm.config';
+import { CustomerModule } from './modules/customer/customer.module';
+import { ProductModule } from './modules/product/product.module';
 
 // TODO
 // - Validate ENV VARS
@@ -12,7 +14,11 @@ import mikroOrmConfig from './config/mikro-orm.config';
 // - Versioning
 
 @Module({
-  imports: [MikroOrmModule.forRoot(mikroOrmConfig)],
+  imports: [
+    MikroOrmModule.forRoot(mikroOrmConfig),
+    CustomerModule,
+    ProductModule,
+  ],
   controllers: [],
   providers: [],
 })
