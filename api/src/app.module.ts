@@ -9,6 +9,7 @@ import { ProductModule } from './modules/product/product.module';
 // - Routes string in separate file
 // - ? Does Services needs repository boilerplate
 // - ? Services Interfaces
+// - ? Migrations for local dev
 
 // DONE
 // - Versioning
