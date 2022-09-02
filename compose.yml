@@ -7,6 +7,8 @@ services:
     build:
       context: ./api
       target: dev
+      args:
+        - NODE_ENV=development
     ports:
       - "80:3000"
       - "9229:9229"
@@ -16,8 +18,10 @@ services:
     command: yarn start:debug
     volumes:
       - ./api:/app
-      - ./api/package.json:/app/package.json
-      - ./api/yarn.lock:/app/yarn.lock
+      # Fix for node_modules from getting mounted in container
+      # by mounting it to directory of host nodemodules
+      # at buildtime after which it becomes a anonymous volume
+      # NOT PERSISTENT (deleted after container is deleted)
       - /app/node_modules
     environment:
       - DB_PASSWORD=pass

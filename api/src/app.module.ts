@@ -1,18 +1,9 @@
 import { MikroOrmModule } from '@mikro-orm/nestjs';
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { LoggingMiddleware } from './common/middlewares/logger.middleware';
 import mikroOrmConfig from './config/mikro-orm.config';
 import { CustomerModule } from './modules/customer/customer.module';
 import { ProductModule } from './modules/product/product.module';
-
-// TODO
-// - Validate ENV VARS
-// - Routes string in separate file
-// - ? Does Services needs repository boilerplate
-// - ? Services Interfaces
-// - ? Migrations for local dev
-
-// DONE
-// - Versioning
 
 @Module({
   imports: [
@@ -23,4 +14,8 @@ import { ProductModule } from './modules/product/product.module';
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggingMiddleware).forRoutes('*');
+  }
+}
