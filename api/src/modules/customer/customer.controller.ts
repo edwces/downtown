@@ -1,9 +1,18 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post, VERSION_NEUTRAL } from '@nestjs/common';
+import { CustomerService } from './customer.service';
+import { CreateCustomerRequestDTO } from './request/create-customer.request.dto';
 
-@Controller()
+@Controller({ version: [VERSION_NEUTRAL, '1'], path: 'customers' })
 export class CustomerController {
-  @Get('/')
+  constructor(private readonly customerService: CustomerService) {}
+
+  @Get()
   findAll() {
-    return [];
+    return this.customerService.findAll();
+  }
+
+  @Post()
+  create(@Body() data: CreateCustomerRequestDTO) {
+    return this.customerService.create(data);
   }
 }
