@@ -35,7 +35,12 @@ describe('CustomerController', () => {
   describe('POST /', () => {
     it('should not return anything', async () => {
       expect(
-        await controller.create({ email: 'hello@wp.pl', password: 'password' }),
+        await controller.create({
+          email: 'hello@wp.pl',
+          password: 'password',
+          name: 'Bob',
+          surname: 'Man',
+        }),
       ).toEqual(undefined);
     });
   });

@@ -20,6 +20,9 @@ WORKDIR /app
 COPY package.json package.json
 COPY yarn.lock yarn.lock
 
+# install latest yarn
+RUN npm install -g yarn@latest
+
 # Development build
 FROM base as dev
 

@@ -31,7 +31,12 @@ describe('AuthController', () => {
   describe('POST /sign-up', () => {
     it('should not return anything', async () => {
       expect(
-        await controller.signUp({ email: 'hello@wp', password: 'password' }),
+        await controller.signUp({
+          email: 'hello@wp',
+          password: 'password',
+          name: 'Bob',
+          surname: 'Man',
+        }),
       ).toEqual(undefined);
     });
   });

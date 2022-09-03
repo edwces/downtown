@@ -24,6 +24,7 @@ services:
       # NOT PERSISTENT (deleted after container is deleted)
       - /app/node_modules
     environment:
+      - DB_HOST=postgres
       - DB_PASSWORD=pass
       - DB_USER=postgres
       - DB_NAME=postgres
@@ -40,7 +41,7 @@ services:
   postgres-admin:
     image: dpage/pgadmin4:6.12
     ports:
-      - "3002:80"
+      - "3001:80"
     environment:
       # some default values for local development
       - PGADMIN_DEFAULT_EMAIL=user@domain.com
