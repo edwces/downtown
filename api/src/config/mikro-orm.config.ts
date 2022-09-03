@@ -11,4 +11,9 @@ export default {
   password: process.env['DB_PASSWORD'],
   user: process.env['DB_USER'],
   dbName: process.env['DB_NAME'],
+  migrations: {
+    tableName: 'migrations',
+    pathTs: './src/database/migrations',
+    path: './dist/database/migrations',
+  },
 } as MikroOrmModuleSyncOptions;
