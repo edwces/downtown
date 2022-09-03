@@ -6,7 +6,7 @@ type ProductProps = Pick<EntityDTO<Product>, 'label'>;
 @Entity()
 export class Product extends Basic {
   @PrimaryKey()
-  id!: number;
+  readonly id!: number;
 
   @Property()
   label!: string;
