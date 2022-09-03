@@ -16,4 +16,9 @@ export default {
     pathTs: './src/database/migrations',
     path: './dist/database/migrations',
   },
+  seeder: {
+    pathTs: './src/database/seeders',
+    path: './dist/database/seeders',
+    defaultSeeder: 'DatabaseSeeder',
+  },
 } as MikroOrmModuleSyncOptions;

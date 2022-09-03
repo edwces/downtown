@@ -5,5 +5,5 @@ export abstract class Basic {
   createdAt: Date = new Date();
 
   @Property({ onUpdate: () => new Date() })
-  updatedAt: Date;
+  updatedAt: Date = new Date();
 }
