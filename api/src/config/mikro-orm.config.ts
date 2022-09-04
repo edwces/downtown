@@ -1,7 +1,10 @@
 import { MikroOrmModuleSyncOptions } from '@mikro-orm/nestjs';
+import * as dotenv from 'dotenv';
 
 // This needs to be configured separetely from the nestjs app
 // because of mikro-orm-cli and testing
+
+dotenv.config();
 
 export default {
   type: 'postgresql',

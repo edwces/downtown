@@ -19,7 +19,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "migration:fresh": "./node_modules/.bin/ts-node-esm node_modules/@mikro-orm/cli/cli.js migration:fresh --seed"
+    "migration:fresh": "node_modules/.bin/ts-node-esm node_modules/@mikro-orm/cli/cli migration:fresh --seed"
   },
   "dependencies": {
     "@mikro-orm/core": "^5.4.0",
@@ -50,6 +50,7 @@
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
+    "dotenv": "^16.0.2",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
