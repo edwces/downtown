@@ -13,3 +13,5 @@ export type JWTAccessPayload = JWTRegisteredClaims & JWTPublicClaims;
 
 export type JWTRefreshPayload = JWTRegisteredClaims &
   Omit<JWTPublicClaims, 'id'>;
+
+export type JWTUser = Pick<JWTPublicClaims, 'email' | 'id'>;

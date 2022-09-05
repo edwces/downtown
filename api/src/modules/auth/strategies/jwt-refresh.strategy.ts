@@ -4,10 +4,9 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Request } from 'express';
 import { Strategy } from 'passport-jwt';
 import { EnvironmentVariables } from '../../../common/interfaces/environment-variables.interface';
+import { JWT_REFRESH_COOKIE_NAME } from '../auth.constants';
 import { JWTRefreshPayload } from '../auth.types';
 import { AuthStrategies } from '../enums/auth-strategies';
-
-const JWT_REFRESH_COOKIE_NAME = 'refresh_token';
 
 const jwtCookieExtractor = (request: Request) => {
   if (request.cookies && request.cookies[JWT_REFRESH_COOKIE_NAME])
