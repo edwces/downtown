@@ -11,6 +11,7 @@ export default {
   entities: ['./**/*.entity.js'],
   entitiesTs: ['./**/*.entity.ts'],
   host: process.env['DB_HOST'],
+  port: Number.parseInt(process.env['DB_PORT']),
   password: process.env['DB_PASSWORD'],
   user: process.env['DB_USER'],
   dbName: process.env['DB_NAME'],
