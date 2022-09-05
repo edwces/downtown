@@ -5,6 +5,7 @@ import { Request } from 'express';
 import { Strategy } from 'passport-jwt';
 import { EnvironmentVariables } from '../../../common/interfaces/environment-variables.interface';
 import { JWTRefreshPayload } from '../auth.types';
+import { AuthStrategies } from '../enums/auth-strategies';
 
 const JWT_REFRESH_COOKIE_NAME = 'refresh_token';
 
@@ -17,7 +18,7 @@ const jwtCookieExtractor = (request: Request) => {
 @Injectable()
 export class JWTRefreshStrategy extends PassportStrategy(
   Strategy,
-  'jwt-refresh',
+  AuthStrategies.JWT_REFRESH,
 ) {
   constructor(
     private readonly configService: ConfigService<EnvironmentVariables>,
