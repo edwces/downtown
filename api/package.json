@@ -18,8 +18,9 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
-    "fresh": "node_modules/.bin/ts-node-esm node_modules/@mikro-orm/cli/cli schema:update --run && node_modules/.bin/ts-node-esm node_modules/@mikro-orm/cli/cli seeder:run"
+    "test:e2e": "jest --config ./test/jest-e2e.json --detectOpenHandles",
+    "schema:update": ".\\node_modules\\.bin\\ts-node-esm node_modules\\@mikro-orm\\cli\\cli schema:update --run",
+    "fresh": "./node_modules/.bin/ts-node-esm node_modules/@mikro-orm/cli/cli schema:update --run && ./node_modules/.bin/ts-node-esm node_modules/@mikro-orm/cli/cli seeder:run"
   },
   "dependencies": {
     "@mikro-orm/core": "^5.4.0",
