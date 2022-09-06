@@ -1,11 +1,11 @@
 import { MikroORM } from '@mikro-orm/core';
 import { INestApplication, HttpStatus } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { Customer } from '../src/modules/customer/customer.entity';
+import { Product } from '../src/modules/product/product.entity';
 import request from 'supertest';
 import { AppModule } from '../src/app.module';
 
-describe('CustomerController (e2e)', () => {
+describe('ProductController (e2e)', () => {
   let app: INestApplication;
   let orm: MikroORM;
 
@@ -31,38 +31,28 @@ describe('CustomerController (e2e)', () => {
   });
 
   describe('GET /', () => {
-    it('when asked should return status 200 and retrieve an array of customer records', async () => {
-      // Arrange
+    it('when asked should return status 200 and retrieve array of product records', async () => {
       const em = orm.em.fork();
-      const customer = await Customer.create({
-        email: 'hello@wp',
-        password: 'password',
-        name: 'Bob',
-        surname: 'Man',
-      });
+      const customer = Product.create({ label: 'T-shirt' });
       await em.persistAndFlush(customer);
 
-      // Act
-      const response = await request(app.getHttpServer()).get('/customers');
+      const response = await request(app.getHttpServer()).get('/products');
 
-      // Assert
       expect(response.status).toEqual(HttpStatus.OK);
       expect(response.body).toEqual(
-        JSON.parse(JSON.stringify(await em.find(Customer, {}))),
+        JSON.parse(JSON.stringify(await em.find(Product, {}))),
       );
     });
   });
 
   describe('POST /', () => {
-    it('when adding new valid customer, then should get approval with status 201', async () => {
+    it('when adding a new valid product, then should get an approval with status 201', async () => {
       const dto = {
-        email: 'hello@wp',
-        password: 'password',
-        name: 'Bob',
-        surname: 'Man',
+        label: 'T-shirt',
       };
+
       const response = await request(app.getHttpServer())
-        .post('/customers')
+        .post('/products')
         .send(dto);
 
       expect(response.status).toEqual(HttpStatus.CREATED);
