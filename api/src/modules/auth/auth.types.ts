@@ -1,17 +1,11 @@
-interface JWTRegisteredClaims {
-  sub: string;
-}
-
 interface JWTPublicClaims {
   id: string;
   name: string;
-  surname: string;
   email: string;
 }
 
-export type JWTAccessPayload = JWTRegisteredClaims & JWTPublicClaims;
+export type JWTAccessPayload = JWTPublicClaims;
 
-export type JWTRefreshPayload = JWTRegisteredClaims &
-  Omit<JWTPublicClaims, 'id'>;
+export type JWTRefreshPayload = Omit<JWTPublicClaims, 'name' | 'email'>;
 
 export type JWTUser = Pick<JWTPublicClaims, 'email' | 'id'>;

@@ -12,28 +12,36 @@ import { Response } from 'express';
 import { JWT_REFRESH_COOKIE_NAME } from './auth.constants';
 import { AuthService } from './auth.service';
 import { JWTRefreshGuard } from './guards/jwt-refresh.guard';
-import { SignInCustomerRequestDTO } from './request/sign-in-customer.request.dto';
-import { SignUpCustomerRequestDTO } from './request/sign-up-customer.request.dto';
+import { SignInRequestDTO } from './request/sign-in.request.dto';
+import { SignUpRequestDTO } from './request/sign-up.request.dto';
 
 @Controller({ version: [VERSION_NEUTRAL, '1'], path: 'auth' })
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('sign-up')
-  signUp(@Body() data: SignUpCustomerRequestDTO) {
+  signUp(@Body() data: SignUpRequestDTO) {
     return this.authService.signUp(data);
   }
 
   @Post('sign-in')
   @HttpCode(HttpStatus.OK)
-  signIn(@Body() data: SignInCustomerRequestDTO) {
-    return this.authService.signIn(data);
+  async signIn(
+    @Res({ passthrough: true }) response: Response,
+    @Body() data: SignInRequestDTO,
+  ) {
+    const customer = await this.authService.signIn(data);
+    const accessToken = await this.authService.createAccessToken(customer);
+    const refreshToken = await this.authService.createRefreshToken(customer);
+
+    response.cookie(JWT_REFRESH_COOKIE_NAME, refreshToken, { httpOnly: true });
+    return { customer, token: accessToken };
   }
 
   @Post('sign-out')
   @UseGuards(JWTRefreshGuard)
   @HttpCode(HttpStatus.OK)
-  signOut(@Res() response: Response) {
+  signOut(@Res({ passthrough: true }) response: Response) {
     response.clearCookie(JWT_REFRESH_COOKIE_NAME);
   }
 }

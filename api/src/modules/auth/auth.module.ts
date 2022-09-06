@@ -8,9 +8,14 @@ import { JWTAccessGuard } from './guards/jwt-access.guard';
 import { JWTRefreshGuard } from './guards/jwt-refresh.guard';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Customer } from '../customer/customer.entity';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [MikroOrmModule.forFeature([Customer]), PassportModule],
+  imports: [
+    MikroOrmModule.forFeature([Customer]),
+    PassportModule,
+    JwtModule.register({}),
+  ],
   controllers: [AuthController],
   providers: [
     AuthService,

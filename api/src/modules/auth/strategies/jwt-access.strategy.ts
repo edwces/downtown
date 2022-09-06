@@ -22,7 +22,7 @@ export class JWTAccessStrategy extends PassportStrategy(
 
   validate(payload: JWTAccessPayload) {
     return {
-      id: payload.sub,
+      id: payload.id,
       email: payload.email,
       name: payload.name,
     };

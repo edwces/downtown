@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { SignInCustomerRequestDTO } from './request/sign-in-customer.request.dto';
-import { SignUpCustomerRequestDTO } from './request/sign-up-customer.request.dto';
+import { SignInRequestDTO } from './request/sign-in.request.dto';
+import { SignUpRequestDTO } from './request/sign-up.request.dto';
 
 describe('AuthController', () => {
   let controller: AuthController;
 
   const mockAuthService = {
-    signUp: jest.fn((dto: SignUpCustomerRequestDTO) => Promise.resolve()),
-    signIn: jest.fn((dto: SignInCustomerRequestDTO) => Promise.resolve()),
+    signUp: jest.fn((dto: SignUpRequestDTO) => Promise.resolve()),
+    signIn: jest.fn((dto: SignInRequestDTO) => Promise.resolve()),
   };
 
   beforeEach(async () => {

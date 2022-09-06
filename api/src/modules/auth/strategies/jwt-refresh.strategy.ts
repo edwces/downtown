@@ -30,9 +30,7 @@ export class JWTRefreshStrategy extends PassportStrategy(
 
   validate(payload: JWTRefreshPayload) {
     return {
-      id: payload.sub,
-      email: payload.email,
-      name: payload.name,
+      id: payload.id,
     };
   }
 }

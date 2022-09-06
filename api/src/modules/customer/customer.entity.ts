@@ -16,7 +16,7 @@ export class Customer extends Basic {
   @Property()
   email!: string;
 
-  @Property()
+  @Property({ hidden: true })
   password!: string;
 
   @Property()
@@ -39,5 +39,9 @@ export class Customer extends Basic {
 
   promote() {
     this.role = CustomerRoles.ADMIN;
+  }
+
+  verify(plain: string) {
+    return argon2.verify(this.password, plain);
   }
 }
