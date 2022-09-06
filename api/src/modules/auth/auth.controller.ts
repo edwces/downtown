@@ -7,8 +7,10 @@ import {
   HttpStatus,
   UseGuards,
   Res,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { Response } from 'express';
+import { User } from 'src/common/decorators/user.decorator';
 import { JWT_REFRESH_COOKIE_NAME } from './auth.constants';
 import { AuthService } from './auth.service';
 import { JWTRefreshGuard } from './guards/jwt-refresh.guard';
@@ -43,5 +45,15 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   signOut(@Res({ passthrough: true }) response: Response) {
     response.clearCookie(JWT_REFRESH_COOKIE_NAME);
+  }
+
+  @Post('refresh')
+  @UseGuards(JWTRefreshGuard)
+  @HttpCode(HttpStatus.OK)
+  async refresh(@User('id', ParseIntPipe) id: number) {
+    const customer = await this.authService.refresh(id);
+    const accessToken = await this.authService.createAccessToken(customer);
+
+    return { customer, token: accessToken };
   }
 }

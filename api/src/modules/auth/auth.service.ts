@@ -29,10 +29,17 @@ export class AuthService {
     const customer = await this.customerRepository.findOne({
       email: data.email,
     });
+    if (!customer) {
+      throw new UnauthorizedException('Email is not correct');
+    }
     const isPasswordCorrect = await customer.verify(data.password);
     if (!isPasswordCorrect)
       throw new UnauthorizedException('Password is not correct');
     return customer;
+  }
+
+  async refresh(id: number) {
+    return await this.customerRepository.findOneOrFail(id);
   }
 
   async createAccessToken(customer: Customer) {

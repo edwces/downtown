@@ -1,4 +1,5 @@
 import { MikroOrmModuleSyncOptions } from '@mikro-orm/nestjs';
+import { NotFoundException } from '@nestjs/common';
 import * as dotenv from 'dotenv';
 
 // This needs to be configured separetely from the nestjs app
@@ -24,5 +25,8 @@ export default {
     pathTs: './src/database/seeders',
     path: './dist/database/seeders',
     defaultSeeder: 'DatabaseSeeder',
+  },
+  findOneOrFailHandler: (entityName) => {
+    throw new NotFoundException(`${entityName} was not found`);
   },
 } as MikroOrmModuleSyncOptions;

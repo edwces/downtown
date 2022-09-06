@@ -6,8 +6,8 @@ import { Customer } from '../../modules/customer/customer.entity';
 export class DatabaseSeeder extends Seeder {
   async run(em: EntityManager): Promise<void> {
     const customer = await Customer.create({
-      email: 'hello@wp',
-      password: 'pass',
+      email: 'hello@wp.pl',
+      password: 'password',
       name: 'Bob',
       surname: 'Man',
     });
