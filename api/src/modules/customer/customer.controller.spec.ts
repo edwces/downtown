@@ -8,7 +8,7 @@ describe('CustomerController', () => {
 
   const mockCustomerService = {
     findAll: jest.fn(() => Promise.resolve([])),
-    create: jest.fn((dto: CreateCustomerRequestDTO) => Promise.resolve()),
+    create: jest.fn((data: CreateCustomerRequestDTO) => Promise.resolve()),
   };
 
   beforeEach(async () => {
@@ -20,7 +20,11 @@ describe('CustomerController', () => {
       .useValue(mockCustomerService)
       .compile();
 
-    controller = module.get<CustomerController>(CustomerController);
+    controller = module.get(CustomerController);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   it('should be defined', () => {
@@ -28,20 +32,22 @@ describe('CustomerController', () => {
   });
 
   describe('GET /', () => {
-    it('should returns Array of Customers', async () => {
-      expect(await controller.findAll()).toEqual([]);
+    it('when called should provide array of Customers', async () => {
+      const result = await controller.findAll();
+      expect(result).toEqual([]);
+      expect(mockCustomerService.findAll).toBeCalledTimes(1);
     });
   });
   describe('POST /', () => {
-    it('should not return anything', async () => {
-      expect(
-        await controller.create({
-          email: 'hello@wp.pl',
-          password: 'password',
-          name: 'Bob',
-          surname: 'Man',
-        }),
-      ).toEqual(undefined);
+    it('when called should not provide anything', async () => {
+      const result = await controller.create({
+        email: 'hello@wp.pl',
+        password: 'password',
+        name: 'Bob',
+        surname: 'Man',
+      });
+      expect(result).toBeUndefined();
+      expect(mockCustomerService.create).toBeCalledTimes(1);
     });
   });
 });

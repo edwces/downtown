@@ -8,7 +8,7 @@ describe('ProductController', () => {
 
   const mockProductService = {
     findAll: jest.fn(() => Promise.resolve([])),
-    create: jest.fn((dto: CreateProductRequestDTO) => Promise.resolve()),
+    create: jest.fn((data: CreateProductRequestDTO) => Promise.resolve()),
   };
 
   beforeEach(async () => {
@@ -20,7 +20,11 @@ describe('ProductController', () => {
       .useValue(mockProductService)
       .compile();
 
-    controller = module.get<ProductController>(ProductController);
+    controller = module.get(ProductController);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   it('should be defined', () => {
@@ -28,13 +32,17 @@ describe('ProductController', () => {
   });
 
   describe('GET /', () => {
-    it('should returns Array of Customers', async () => {
-      expect(await controller.findAll()).toEqual([]);
+    it('when called should provide array of Products', async () => {
+      const result = await controller.findAll();
+      expect(result).toEqual([]);
+      expect(mockProductService.findAll).toBeCalledTimes(1);
     });
   });
   describe('POST /', () => {
-    it('should not return anything', async () => {
-      expect(await controller.create({ label: 't-shirt' })).toEqual(undefined);
+    it('when called should not provide anything', async () => {
+      const result = await controller.create({ label: 't-shirt' });
+      expect(result).toBeUndefined();
+      expect(mockProductService.create).toBeCalledTimes(1);
     });
   });
 });
