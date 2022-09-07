@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { Button } from "../common/ui/Button/Button";
+import { MainHeader } from "../modules/main/MainHeader";
+import { MainLayout } from "../modules/main/MainLayout";
 
 const Home: NextPage = () => {
   return (
@@ -11,10 +12,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex gap-10 p-20">
-        <Button>Hello</Button>
-        <Button variant="outline">Hello</Button>
-      </main>
+      <MainLayout>Content</MainLayout>
     </>
   );
 };
