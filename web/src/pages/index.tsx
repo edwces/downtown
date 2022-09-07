@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { MainHeader } from "../modules/main/MainHeader";
 import { MainLayout } from "../modules/main/MainLayout";
+import { ProductsList } from "../modules/product/ProductsList";
 
 const Home: NextPage = () => {
   return (
@@ -12,7 +12,16 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <MainLayout>Content</MainLayout>
+      <MainLayout>
+        <ProductsList
+          products={[
+            { label: "T shirt", id: 1 },
+            { label: "Pants", id: 2 },
+            { label: "Hat", id: 3 },
+            { label: "Hoodie", id: 4 },
+          ]}
+        />
+      </MainLayout>
     </>
   );
 };
