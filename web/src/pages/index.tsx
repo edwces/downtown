@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { Button } from "../common/ui/Button/Button";
 
 const Home: NextPage = () => {
   return (
@@ -10,7 +11,10 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="container mx-auto flex flex-col items-center justify-center min-h-screen p-4"></main>
+      <main className="flex gap-10 p-20">
+        <Button>Hello</Button>
+        <Button variant="outline">Hello</Button>
+      </main>
     </>
   );
 };
