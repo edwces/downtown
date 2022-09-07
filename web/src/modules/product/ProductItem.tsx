@@ -13,7 +13,7 @@ export const ProductItem = ({ label, price }: ProductItemProps) => {
         <div className=" border-b-2 border-gray-400 my-4" />
         <div className="flex justify-between items-center">
           <h2 className="text-xl font-bold">{price}</h2>
-          <Button>Cart</Button>
+          <Button variant="outline">Add to Cart</Button>
         </div>
       </div>
     </article>

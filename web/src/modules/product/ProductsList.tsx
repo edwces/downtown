@@ -7,7 +7,7 @@ interface ProductsList {
 
 export const ProductsList = ({ products = [] }: ProductsList) => {
   return (
-    <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+    <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
       {products.map((product) => (
         <li key={product.id}>
           <ProductItem label={product.label} price="200.99 $" />

@@ -5,7 +5,7 @@ type ButtonProps = DetailedHTMLProps<
   ButtonHTMLAttributes<HTMLButtonElement>,
   HTMLButtonElement
 > & {
-  variant?: "outline" | "filled";
+  variant?: "outline" | "filled" | "unstyled";
   children?: ReactNode;
 };
 
@@ -15,9 +15,9 @@ export const Button = ({ variant = "filled", children }: ButtonProps) => {
       className={cls(
         "transition ease-in-out duration-150 p-2",
         variant === "filled" &&
-          "bg-black text-white hover:bg-gray-800 active:bg-gray-600",
+          "bg-primary text-white hover:bg-primary-800 active:bg-primary-600",
         variant === "outline" &&
-          "border-[1px] border-gray-400 hover:bg-gray-100 active:bg-gray-200"
+          "border-[1px] border-primary-300 hover:bg-primary-100 active:bg-primary-200"
       )}
     >
       {children}
