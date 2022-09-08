@@ -1,14 +1,9 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useState } from "react";
-import { Button } from "../common/ui/Button";
-import { Drawer } from "../common/ui/Drawer";
 import { MainLayout } from "../modules/main/MainLayout";
 import { ProductsList } from "../modules/product/ProductsList";
 
 const Home: NextPage = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
     <>
       <Head>
@@ -26,10 +21,6 @@ const Home: NextPage = () => {
             { label: "Hoodie", id: 4 },
           ]}
         />
-        <Button onClick={() => setIsOpen(!isOpen)}>Open</Button>
-        <Drawer size="xl" isOpen={isOpen} onClose={() => setIsOpen(!isOpen)}>
-          Hello
-        </Drawer>
       </MainLayout>
     </>
   );
