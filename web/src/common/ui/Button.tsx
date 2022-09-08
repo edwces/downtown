@@ -9,7 +9,12 @@ type ButtonProps = DetailedHTMLProps<
   children?: ReactNode;
 };
 
-export const Button = ({ variant = "filled", children }: ButtonProps) => {
+export const Button = ({
+  variant = "filled",
+  children,
+  className,
+  ...props
+}: ButtonProps) => {
   return (
     <button
       className={cls(
@@ -17,8 +22,10 @@ export const Button = ({ variant = "filled", children }: ButtonProps) => {
         variant === "filled" &&
           "bg-primary text-white hover:bg-primary-800 active:bg-primary-600",
         variant === "outline" &&
-          "border-[1px] border-primary-300 hover:bg-primary-100 active:bg-primary-200"
+          "border-[1px] border-primary-300 hover:bg-primary-100 active:bg-primary-200",
+        className
       )}
+      {...props}
     >
       {children}
     </button>

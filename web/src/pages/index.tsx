@@ -1,9 +1,13 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { useState } from "react";
+import { Drawer } from "../common/ui/Drawer";
 import { MainLayout } from "../modules/main/MainLayout";
 import { ProductsList } from "../modules/product/ProductsList";
 
 const Home: NextPage = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <>
       <Head>
@@ -21,6 +25,7 @@ const Home: NextPage = () => {
             { label: "Hoodie", id: 4 },
           ]}
         />
+        <Drawer isOpen={isOpen} onClose={() => setIsOpen(!isOpen)} />
       </MainLayout>
     </>
   );
