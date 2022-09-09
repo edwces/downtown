@@ -4,6 +4,8 @@ import { AuthLayout } from "../../modules/auth/AuthLayout";
 import { SignUpForm } from "../../modules/auth/SignUpForm";
 
 const SignUp: NextPage = () => {
+  const handleSubmit = (data: any) => console.log(data);
+
   return (
     <>
       <Head>
@@ -12,7 +14,7 @@ const SignUp: NextPage = () => {
       <AuthLayout>
         <div className="w-[28rem]">
           <h1 className=" text-5xl mb-8 font-extrabold text-center">Sign Up</h1>
-          <SignUpForm />
+          <SignUpForm onSubmit={handleSubmit} />
         </div>
       </AuthLayout>
     </>

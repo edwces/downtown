@@ -1,21 +1,22 @@
-import { forwardRef } from "react";
-import { Input } from "./Input";
+import { forwardRef, useId } from "react";
+import { Input, InputProps } from "./Input";
 
-interface TextFieldProps {
+type TextFieldProps = InputProps & {
   label?: string;
-  id?: string;
-}
+};
 
-export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(
-  ({ label, id }, forwardedRef) => {
+export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
+  ({ label, ...props }, forwardedRef) => {
+    const id = useId();
+
     return (
-      <div ref={forwardedRef} className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3">
         {label && (
           <label className="text-md font-semibold" htmlFor={id}>
             {label}
           </label>
         )}
-        <Input id={id} />
+        <Input id={id} {...props} ref={forwardedRef} />
       </div>
     );
   }

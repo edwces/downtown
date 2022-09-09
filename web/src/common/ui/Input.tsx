@@ -1,7 +1,7 @@
 import { DetailedHTMLProps, forwardRef, InputHTMLAttributes } from "react";
 import { cls } from "../utils/cls";
 
-type InputProps = DetailedHTMLProps<
+export type InputProps = DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
 >;
