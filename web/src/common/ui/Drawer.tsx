@@ -43,12 +43,16 @@ export const Drawer = ({
               exit={{ x: sizeToStyle[size] }}
               className={cls(`fixed p-2 bg-white h-screen max-w-full z-20`)}
             >
-              <div className="flex justify-end mb-2">
-                <Button onClick={onClose} variant="unstyled">
+              <div className="flex flex-col gap-2 h-full">
+                <Button
+                  className="ml-auto"
+                  onClick={onClose}
+                  variant="unstyled"
+                >
                   <X />
                 </Button>
+                {children}
               </div>
-              {children}
             </motion.div>
           </>
         )}

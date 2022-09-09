@@ -1,13 +1,17 @@
 import { Minus, Plus } from "react-feather";
 import { Button } from "../../common/ui/Button";
 
-interface CartItemProps {
+interface CartDrawerItemProps {
   label: string;
   price: string;
-  quantity: string;
+  quantity: number;
 }
 
-export const CartItem = ({ label, price, quantity }: CartItemProps) => {
+export const CartDrawerItem = ({
+  label,
+  price,
+  quantity,
+}: CartDrawerItemProps) => {
   return (
     <article>
       <div className="p2 break-words"></div>
