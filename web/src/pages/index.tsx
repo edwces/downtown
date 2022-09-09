@@ -1,9 +1,15 @@
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { MainLayout } from "../modules/main/MainLayout";
+import { getProducts, useProducts } from "../modules/product/api/useProducts";
+import { Product } from "../modules/product/product.model";
 import { ProductsList } from "../modules/product/ProductsList";
 
-const Home: NextPage = () => {
+type HomeProps = { products: Product[] };
+
+const Home: NextPage<HomeProps> = ({ products }) => {
+  const { data } = useProducts({ initialData: products });
+
   return (
     <>
       <Head>
@@ -13,17 +19,16 @@ const Home: NextPage = () => {
       </Head>
 
       <MainLayout>
-        <ProductsList
-          products={[
-            { label: "T shirt", id: 1 },
-            { label: "Pants", id: 2 },
-            { label: "Hat", id: 3 },
-            { label: "Hoodie", id: 4 },
-          ]}
-        />
+        <ProductsList products={data} />
       </MainLayout>
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+  const products = await getProducts();
+
+  return { props: { products } };
 };
 
 export default Home;

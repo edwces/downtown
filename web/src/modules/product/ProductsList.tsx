@@ -3,7 +3,7 @@ import { Product } from "./product.model";
 import { ProductItem } from "./ProductItem";
 
 interface ProductsList {
-  products: Product[];
+  products?: Product[];
 }
 
 export const ProductsList = ({ products = [] }: ProductsList) => {
