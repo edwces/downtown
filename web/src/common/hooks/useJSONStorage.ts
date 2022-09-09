@@ -10,6 +10,7 @@ export const useJSONStorage = ({ key, initial }: UseJSONStorageArgs) => {
     if (typeof window === "undefined") return "";
 
     const value = localStorage.getItem(key);
+    // when key has not been created yet create one
     if (value === null || value === "") {
       localStorage.setItem(key, JSON.stringify(initial || {}));
       return initial;
@@ -26,8 +27,9 @@ export const useJSONStorage = ({ key, initial }: UseJSONStorageArgs) => {
   };
 
   useEffect(() => {
+    // Synchronize parsed state between app
     const onStorage = (event: StorageEvent) => {
-      setValue(JSON.stringify(event.newValue));
+      setValue(JSON.parse(event.newValue || "{}"));
     };
 
     addEventListener("storage", onStorage);

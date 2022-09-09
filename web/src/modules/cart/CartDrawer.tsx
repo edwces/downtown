@@ -3,6 +3,7 @@ import { Button } from "../../common/ui/Button";
 import { Drawer } from "../../common/ui/Drawer";
 import { CartItem } from "./cart-item.model";
 import { CartDrawerItem } from "./CartDrawerItem";
+import { useLocalCart } from "./hooks/useLocalCart";
 
 interface CartDrawerProps {
   onCheckout?: () => void;
@@ -11,6 +12,7 @@ interface CartDrawerProps {
 
 export const CartDrawer = ({ cartItems = [], onCheckout }: CartDrawerProps) => {
   const { isOpen, toggle } = useCartDrawer();
+  const { addOne, removeOne } = useLocalCart();
 
   return (
     <Drawer size="xl" isOpen={isOpen} onClose={toggle}>
@@ -22,6 +24,8 @@ export const CartDrawer = ({ cartItems = [], onCheckout }: CartDrawerProps) => {
                 label={cartItem.product.label}
                 price="200.99 $"
                 quantity={cartItem.quantity}
+                onIncrementQuantity={() => addOne(cartItem.product.id)}
+                onDecrementQuantity={() => removeOne(cartItem.product.id)}
               />
             </li>
           ))}
