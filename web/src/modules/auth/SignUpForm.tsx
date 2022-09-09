@@ -19,7 +19,11 @@ interface SignUpFormProps {
 }
 
 export const SignUpForm = ({ onSubmit = () => {} }: SignUpFormProps) => {
-  const { register, handleSubmit } = useForm<SignUpRequestDTO>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignUpRequestDTO>({
     resolver: zodResolver(signUpSchema),
   });
 
@@ -27,17 +31,29 @@ export const SignUpForm = ({ onSubmit = () => {} }: SignUpFormProps) => {
     <Paper className="p-10">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-8">
-          <TextField label="Name" required {...register("name")} />
-          <TextField label="Surname" required {...register("surname")} />
+          <TextField
+            label="Name"
+            required
+            error={errors.name?.message}
+            {...register("name")}
+          />
+          <TextField
+            label="Surname"
+            required
+            error={errors.surname?.message}
+            {...register("surname")}
+          />
           <TextField
             label="Email"
             type="email"
+            error={errors.email?.message}
             required
             {...register("email")}
           />
           <TextField
             label="Password"
             type="password"
+            error={errors.password?.message}
             required
             {...register("password")}
           />

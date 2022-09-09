@@ -3,10 +3,11 @@ import { Input, InputProps } from "./Input";
 
 type TextFieldProps = InputProps & {
   label?: string;
+  error?: string;
 };
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
-  ({ label, ...props }, forwardedRef) => {
+  ({ label, error, ...props }, forwardedRef) => {
     const id = useId();
 
     return (
@@ -17,6 +18,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
           </label>
         )}
         <Input id={id} {...props} ref={forwardedRef} />
+        {error && <p className="text-xs text-red-600">{error}</p>}
       </div>
     );
   }
