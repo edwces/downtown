@@ -1,10 +1,13 @@
 import { NextPage } from "next";
 import Head from "next/head";
+import { useRouter } from "next/router";
+import { useSignInMutation } from "../../modules/auth/api/useSignInMutation";
 import { AuthLayout } from "../../modules/auth/AuthLayout";
 import { SignInForm } from "../../modules/auth/SignInForm";
 
 const SignIn: NextPage = () => {
-  const handleSubmit = (data: any) => console.log(data);
+  const router = useRouter();
+  const signIn = useSignInMutation();
 
   return (
     <>
@@ -14,7 +17,11 @@ const SignIn: NextPage = () => {
       <AuthLayout>
         <div className="w-[28rem]">
           <h1 className=" text-5xl mb-8 font-extrabold text-center">Sign In</h1>
-          <SignInForm onSubmit={handleSubmit} />
+          <SignInForm
+            onSubmit={(data) =>
+              signIn.mutate(undefined, { onSuccess: () => router.push("/") })
+            }
+          />
         </div>
       </AuthLayout>
     </>
