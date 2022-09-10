@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { LoggingMiddleware } from './common/middlewares/logger.middleware';
 import mikroOrmConfig from './config/mikro-orm.config';
 import { AuthModule } from './modules/auth/auth.module';
+import { CartModule } from './modules/cart/cart.module';
 import { CustomerModule } from './modules/customer/customer.module';
 import { ProductModule } from './modules/product/product.module';
 
@@ -13,6 +14,7 @@ import { ProductModule } from './modules/product/product.module';
     ConfigModule.forRoot({ isGlobal: true }),
     CustomerModule,
     ProductModule,
+    CartModule,
     AuthModule,
   ],
   controllers: [],
