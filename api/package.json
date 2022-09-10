@@ -19,8 +19,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json --forceExit",
-    "schema:update": ".\\node_modules\\.bin\\ts-node-esm node_modules\\@mikro-orm\\cli\\cli schema:update --run",
-    "fresh": ".\\node_modules\\.bin\\ts-node-esm node_modules\\@mikro-orm\\cli\\cli schema:update --run && .\\node_modules\\.bin\\ts-node-esm node_modules\\@mikro-orm\\cli\\cli seeder:run"
+    "db:fresh": "mikro-orm migration:fresh --seed"
   },
   "dependencies": {
     "@mikro-orm/core": "^5.4.0",

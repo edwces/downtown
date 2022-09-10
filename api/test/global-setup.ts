@@ -7,5 +7,5 @@ const exec = util.promisify(childProcess.exec);
 
 export default async () => {
   await exec('cd .. && docker compose -f compose.test.yml up --wait');
-  await exec('yarn schema:update');
+  await exec('yarn mikro-orm migration:up');
 };
