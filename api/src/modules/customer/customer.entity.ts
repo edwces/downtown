@@ -1,18 +1,28 @@
-import { Entity, EntityDTO, Enum, PrimaryKey, Property } from '@mikro-orm/core';
+import {
+  Entity,
+  EntityDTO,
+  Enum,
+  OneToOne,
+  PrimaryKey,
+  Property,
+  Unique,
+} from '@mikro-orm/core';
 import * as argon2 from 'argon2';
 import { Basic } from '../../common/basic.entity';
+import { Cart } from '../cart/entities/cart.entity';
 import { CustomerRoles } from './enums/customer-roles.enum';
 
 type CustomerProps = Omit<
   EntityDTO<Customer>,
-  'role' | 'id' | 'createdAt' | 'updatedAt'
->;
+  'role' | 'id' | 'createdAt' | 'updatedAt' | 'cart'
+> & { cart: Cart };
 
 @Entity()
 export class Customer extends Basic {
   @PrimaryKey()
   readonly id!: number;
 
+  @Unique()
   @Property()
   email!: string;
 
@@ -27,6 +37,9 @@ export class Customer extends Basic {
 
   @Enum(() => CustomerRoles)
   role: CustomerRoles = CustomerRoles.USER;
+
+  @OneToOne({ entity: () => Cart, owner: true })
+  cart!: Cart;
 
   static async create(data: CustomerProps) {
     const customer = new Customer();

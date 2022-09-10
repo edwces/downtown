@@ -1,6 +1,7 @@
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityRepository } from '@mikro-orm/postgresql';
 import { Injectable } from '@nestjs/common';
+import { Cart } from '../cart/entities/cart.entity';
 import { Customer } from './customer.entity';
 import { CreateCustomerRequestDTO } from './request/create-customer.request.dto';
 
@@ -16,7 +17,8 @@ export class CustomerService {
   }
 
   async create(data: CreateCustomerRequestDTO) {
-    const customer = await Customer.create(data);
-    await this.customerRepository.persistAndFlush(customer);
+    const cart = Cart.create();
+    const customer = await Customer.create({ ...data, cart });
+    await this.customerRepository.persistAndFlush([customer, cart]);
   }
 }
