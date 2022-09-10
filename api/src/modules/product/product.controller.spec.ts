@@ -40,7 +40,10 @@ describe('ProductController', () => {
   });
   describe('POST /', () => {
     it('when called should not provide anything', async () => {
-      const result = await controller.create({ label: 't-shirt' });
+      const result = await controller.create({
+        label: 't-shirt',
+        price: 19.99,
+      });
       expect(result).toBeUndefined();
       expect(mockProductService.create).toBeCalledTimes(1);
     });

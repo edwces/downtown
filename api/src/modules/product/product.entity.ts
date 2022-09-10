@@ -10,7 +10,7 @@ import {
 import { Basic } from '../../common/basic.entity';
 import { CartItem } from '../cart/entities/cart-item.entity';
 
-type ProductProps = Pick<EntityDTO<Product>, 'label'>;
+type ProductProps = Pick<EntityDTO<Product>, 'label' | 'price'>;
 
 @Entity()
 export class Product extends Basic {
@@ -30,6 +30,7 @@ export class Product extends Basic {
   static create(data: ProductProps) {
     const product = new Product();
     product.label = data.label;
+    product.price = data.price;
     return product;
   }
 }

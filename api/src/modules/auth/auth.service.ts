@@ -4,6 +4,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { EnvironmentVariables } from 'src/common/interfaces/environment-variables.interface';
+import { Cart } from '../cart/entities/cart.entity';
 import { Customer } from '../customer/customer.entity';
 import { SignInRequestDTO } from './request/sign-in.request.dto';
 import { SignUpRequestDTO } from './request/sign-up.request.dto';
@@ -21,7 +22,8 @@ export class AuthService {
   ) {}
 
   async signUp(data: SignUpRequestDTO) {
-    const customer = await Customer.create(data);
+    const cart = new Cart();
+    const customer = await Customer.create({ ...data, cart });
     await this.customerRepository.persistAndFlush(customer);
   }
 

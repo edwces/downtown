@@ -19,7 +19,7 @@ export class CartItem extends Basic {
   product!: Product;
 
   @Property()
-  quantity!: number = 1;
+  quantity: number = 1;
 
   @ManyToOne(() => Cart)
   cart!: Cart;
