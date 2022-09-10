@@ -47,6 +47,7 @@ export class Customer extends Basic {
     customer.password = await argon2.hash(data.password);
     customer.name = data.name;
     customer.surname = data.surname;
+    customer.cart = data.cart;
     return customer;
   }
 
