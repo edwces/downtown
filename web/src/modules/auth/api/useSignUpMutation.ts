@@ -1,9 +1,11 @@
 import { useMutation } from "react-query";
+import { http } from "../../../config/http.config";
+import { SignUpRequestDTO } from "../request.schemas";
 
-const signUp = () => {
-  return Promise.resolve();
+const signUp = (data: SignUpRequestDTO) => {
+  return http.post("auth/sign-up", data);
 };
 
 export const useSignUpMutation = () => {
-  return useMutation(() => signUp());
+  return useMutation((data: SignUpRequestDTO) => signUp(data));
 };

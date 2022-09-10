@@ -8,9 +8,10 @@ async function bootstrap() {
 
   app.enableVersioning({ type: VersioningType.URI });
   app.useGlobalPipes(new ValidationPipe());
+  app.enableCors();
 
   app.use(cookieParser());
 
-  await app.listen(3000);
+  await app.listen(3001);
 }
 bootstrap();

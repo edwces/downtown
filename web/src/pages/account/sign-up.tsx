@@ -19,7 +19,7 @@ const SignUp: NextPage = () => {
           <h1 className=" text-5xl mb-8 font-extrabold text-center">Sign Up</h1>
           <SignUpForm
             onSubmit={(data) =>
-              signUp.mutate(undefined, {
+              signUp.mutate(data, {
                 onSuccess: () => router.push("/account/sign-in"),
               })
             }

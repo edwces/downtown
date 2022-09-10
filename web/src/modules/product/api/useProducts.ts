@@ -5,12 +5,7 @@ import { useQuery } from "react-query";
 type UseProductsArgs = { initialData: Product[] };
 
 export const getProducts = () => {
-  return Promise.resolve([
-    { label: "T shirt", id: 1 },
-    { label: "Pants", id: 2 },
-    { label: "Hat", id: 3 },
-    { label: "Hoodie", id: 4 },
-  ] as Product[]);
+  return http.get<Product[]>("/products").then((response) => response.data);
 };
 
 export const useProducts = ({ initialData }: UseProductsArgs) => {

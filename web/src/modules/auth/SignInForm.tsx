@@ -1,16 +1,9 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { Button } from "../../common/ui/Button";
 import { Paper } from "../../common/ui/Paper";
 import { TextField } from "../../common/ui/TextField";
-
-const signInSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(5).max(50),
-});
-
-type SignInRequestDTO = z.infer<typeof signInSchema>;
+import { SignInRequestDTO, signInSchema } from "./request.schemas";
 
 interface SignInFormProps {
   onSubmit?: (data: SignInRequestDTO) => void;
