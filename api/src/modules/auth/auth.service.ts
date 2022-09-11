@@ -22,9 +22,9 @@ export class AuthService {
   ) {}
 
   async signUp(data: SignUpRequestDTO) {
-    const cart = new Cart();
-    const customer = await Customer.create({ ...data, cart });
-    await this.customerRepository.persistAndFlush(customer);
+    const customer = await Customer.create(data);
+    const cart = Cart.create({ owner: customer });
+    await this.customerRepository.persistAndFlush([customer, cart]);
   }
 
   async signIn(data: SignInRequestDTO) {

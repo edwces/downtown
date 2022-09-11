@@ -15,7 +15,11 @@ export class CartService {
     private readonly cartItemRepository: EntityRepository<CartItem>,
   ) {}
 
-  private findCartProductByOwner(ownerId: number, productId: number) {
+  findOneByOwner(ownerId: number) {
+    return this.cartRepository.findOne({ owner: ownerId });
+  }
+
+  private findOneCartItemByOwnerAndProduct(ownerId: number, productId: number) {
     return this.cartItemRepository.findOne({
       cart: { owner: ownerId },
       product: productId,
@@ -23,7 +27,7 @@ export class CartService {
   }
 
   async addProductToCartByOwner(data: CreateCartItemRequestDTO) {
-    const itemAlreadyInCart = await this.findCartProductByOwner(
+    const itemAlreadyInCart = await this.findOneCartItemByOwnerAndProduct(
       data.ownerId,
       data.productId,
     );
@@ -43,7 +47,7 @@ export class CartService {
   }
 
   async removeProductFromCartByOwner(data: RemoveCartItemRequestDTO) {
-    const itemAlreadyInCart = await this.findCartProductByOwner(
+    const itemAlreadyInCart = await this.findOneCartItemByOwnerAndProduct(
       data.ownerId,
       data.productId,
     );

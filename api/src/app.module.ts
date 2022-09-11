@@ -6,6 +6,7 @@ import mikroOrmConfig from './config/mikro-orm.config';
 import { AuthModule } from './modules/auth/auth.module';
 import { CartModule } from './modules/cart/cart.module';
 import { CustomerModule } from './modules/customer/customer.module';
+import { MeModule } from './modules/me/me.module';
 import { ProductModule } from './modules/product/product.module';
 
 @Module({
@@ -16,6 +17,7 @@ import { ProductModule } from './modules/product/product.module';
     ProductModule,
     CartModule,
     AuthModule,
+    MeModule,
   ],
   controllers: [],
   providers: [],

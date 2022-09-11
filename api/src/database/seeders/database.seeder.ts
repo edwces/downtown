@@ -6,14 +6,13 @@ import { Cart } from '../../../src/modules/cart/entities/cart.entity';
 
 export class DatabaseSeeder extends Seeder {
   async run(em: EntityManager): Promise<void> {
-    const cart = Cart.create();
     const customer = await Customer.create({
       email: 'hello@wp.pl',
       password: 'password',
       name: 'Bob',
       surname: 'Man',
-      cart,
     });
+    const cart = Cart.create({ owner: customer });
 
     const product = Product.create({
       label: 'T-shirt',
