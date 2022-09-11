@@ -9,10 +9,11 @@ import { JWTRefreshGuard } from './guards/jwt-refresh.guard';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Customer } from '../customer/customer.entity';
 import { JwtModule } from '@nestjs/jwt';
+import { Cart } from '../cart/entities/cart.entity';
 
 @Module({
   imports: [
-    MikroOrmModule.forFeature([Customer]),
+    MikroOrmModule.forFeature([Customer, Cart]),
     PassportModule,
     JwtModule.register({}),
   ],

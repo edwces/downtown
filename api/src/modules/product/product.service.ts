@@ -16,7 +16,7 @@ export class ProductService {
   }
 
   async create(data: CreateProductRequestDTO) {
-    const product = Product.create(data);
+    const product = this.productRepository.create(data);
     await this.productRepository.persistAndFlush(product);
   }
 }

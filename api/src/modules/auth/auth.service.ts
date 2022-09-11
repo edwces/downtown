@@ -17,13 +17,16 @@ export class AuthService {
   constructor(
     @InjectRepository(Customer)
     private readonly customerRepository: EntityRepository<Customer>,
+    @InjectRepository(Cart)
+    private readonly cartRepository: EntityRepository<Cart>,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService<EnvironmentVariables>,
   ) {}
 
   async signUp(data: SignUpRequestDTO) {
-    const customer = await Customer.create(data);
-    const cart = Cart.create({ owner: customer });
+    const customer = this.customerRepository.create(data);
+    customer.setPassword(data.password);
+    const cart = this.cartRepository.create({ owner: customer });
     await this.customerRepository.persistAndFlush([customer, cart]);
   }
 

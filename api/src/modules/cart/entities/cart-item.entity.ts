@@ -4,16 +4,10 @@ import {
   PrimaryKey,
   Property,
   Unique,
-  wrap,
 } from '@mikro-orm/core';
 import { Basic } from '../../../common/basic.entity';
 import { Product } from '../../../modules/product/product.entity';
 import { Cart } from './cart.entity';
-
-type CartItemProps = {
-  product: Product | number;
-  cart: Cart | number;
-};
 
 @Entity()
 @Unique({ properties: ['product', 'cart'] })
@@ -25,16 +19,10 @@ export class CartItem extends Basic {
   product!: Product;
 
   @Property()
-  quantity: number = 1;
+  quantity?: number = 1;
 
   @ManyToOne(() => Cart)
   cart!: Cart;
-
-  static create({ product, cart }: CartItemProps) {
-    const cartItem = new CartItem();
-    wrap(cartItem).assign({ product, cart });
-    return cartItem;
-  }
 
   incrementQuantity() {
     this.quantity += 1;

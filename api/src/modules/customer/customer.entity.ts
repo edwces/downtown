@@ -12,11 +12,6 @@ import { Basic } from '../../common/basic.entity';
 import { Cart } from '../cart/entities/cart.entity';
 import { CustomerRoles } from './enums/customer-roles.enum';
 
-type CustomerProps = Omit<
-  EntityDTO<Customer>,
-  'role' | 'id' | 'createdAt' | 'updatedAt' | 'cart'
-> & { cart: Cart };
-
 @Entity()
 export class Customer extends Basic {
   @PrimaryKey()
@@ -38,21 +33,15 @@ export class Customer extends Basic {
   @Enum(() => CustomerRoles)
   role: CustomerRoles = CustomerRoles.USER;
 
-  @OneToOne({ entity: () => Cart, owner: true })
-  cart!: Cart;
-
-  static async create(data: CustomerProps) {
-    const customer = new Customer();
-    customer.email = data.email;
-    customer.password = await argon2.hash(data.password);
-    customer.name = data.name;
-    customer.surname = data.surname;
-    customer.cart = data.cart;
-    return customer;
-  }
+  @OneToOne({ entity: () => Cart, owner: true, nullable: true })
+  cart?: Cart;
 
   promote() {
     this.role = CustomerRoles.ADMIN;
+  }
+
+  async setPassword(plain: string) {
+    this.password = await argon2.hash(plain);
   }
 
   verify(plain: string) {

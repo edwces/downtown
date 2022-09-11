@@ -16,11 +16,6 @@ export class Cart {
   @OneToMany(() => CartItem, (cartItem) => cartItem.cart)
   items = new Collection<CartItem>(this);
 
-  @OneToOne(() => Customer)
-  owner: Customer;
-
-  static create() {
-    const cart = new Cart();
-    return cart;
-  }
+  @OneToOne(() => Customer, (owner) => owner.cart)
+  owner!: Customer;
 }

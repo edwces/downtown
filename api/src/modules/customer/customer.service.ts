@@ -10,6 +10,8 @@ export class CustomerService {
   constructor(
     @InjectRepository(Customer)
     private readonly customerRepository: EntityRepository<Customer>,
+    @InjectRepository(Cart)
+    private readonly cartRepository: EntityRepository<Cart>,
   ) {}
 
   findAll() {
@@ -17,8 +19,9 @@ export class CustomerService {
   }
 
   async create(data: CreateCustomerRequestDTO) {
-    const cart = Cart.create();
-    const customer = await Customer.create({ ...data, cart });
+    const customer = this.customerRepository.create(data);
+    customer.setPassword(data.password);
+    const cart = this.cartRepository.create({ owner: customer });
     await this.customerRepository.persistAndFlush([customer, cart]);
   }
 }

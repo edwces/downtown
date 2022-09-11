@@ -19,7 +19,7 @@ export class CartService {
     return this.cartRepository.findOne({ owner: ownerId });
   }
 
-  private findOneCartItemByOwnerAndProduct(ownerId: number, productId: number) {
+  private findOneItemByOwnerAndProduct(ownerId: number, productId: number) {
     return this.cartItemRepository.findOne({
       cart: { owner: ownerId },
       product: productId,
@@ -27,7 +27,7 @@ export class CartService {
   }
 
   async addProductToCartByOwner(data: CreateCartItemRequestDTO) {
-    const itemAlreadyInCart = await this.findOneCartItemByOwnerAndProduct(
+    const itemAlreadyInCart = await this.findOneItemByOwnerAndProduct(
       data.ownerId,
       data.productId,
     );
@@ -40,24 +40,26 @@ export class CartService {
         product: data.productId,
         cart,
       });
-      await this.cartItemRepository.persistAndFlush(item);
-    } else {
-      itemAlreadyInCart.incrementQuantity();
+      return await this.cartItemRepository.persistAndFlush(item);
     }
+
+    itemAlreadyInCart.incrementQuantity();
+    await this.cartItemRepository.flush();
   }
 
   async removeProductFromCartByOwner(data: RemoveCartItemRequestDTO) {
-    const itemAlreadyInCart = await this.findOneCartItemByOwnerAndProduct(
+    const itemAlreadyInCart = await this.findOneItemByOwnerAndProduct(
       data.ownerId,
       data.productId,
     );
 
     if (!itemAlreadyInCart)
       throw new BadRequestException('Product is not in cart');
-    if (itemAlreadyInCart.quantity === 1) {
-      await this.cartItemRepository.removeAndFlush(itemAlreadyInCart);
-    } else {
-      itemAlreadyInCart.decrementQuantity();
-    }
+
+    if (itemAlreadyInCart.quantity === 1)
+      return await this.cartItemRepository.removeAndFlush(itemAlreadyInCart);
+
+    itemAlreadyInCart.decrementQuantity();
+    await this.cartItemRepository.flush();
   }
 }

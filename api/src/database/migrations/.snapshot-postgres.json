@@ -14,6 +14,34 @@
           "primary": true,
           "nullable": false,
           "mappedType": "integer"
+        }
+      },
+      "name": "cart",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "cart_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "unsigned": true,
+          "autoincrement": true,
+          "primary": true,
+          "nullable": false,
+          "mappedType": "integer"
         },
         "created_at": {
           "name": "created_at",
@@ -90,7 +118,7 @@
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
           "mappedType": "integer"
         }
       },
@@ -137,65 +165,7 @@
             "id"
           ],
           "referencedTableName": "public.cart",
-          "updateRule": "cascade"
-        }
-      }
-    },
-    {
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "unsigned": true,
-          "autoincrement": true,
-          "primary": true,
-          "nullable": false,
-          "mappedType": "integer"
-        },
-        "owner_id": {
-          "name": "owner_id",
-          "type": "int",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "integer"
-        }
-      },
-      "name": "cart",
-      "schema": "public",
-      "indexes": [
-        {
-          "columnNames": [
-            "owner_id"
-          ],
-          "composite": false,
-          "keyName": "cart_owner_id_unique",
-          "primary": false,
-          "unique": true
-        },
-        {
-          "keyName": "cart_pkey",
-          "columnNames": [
-            "id"
-          ],
-          "composite": false,
-          "primary": true,
-          "unique": true
-        }
-      ],
-      "checks": [],
-      "foreignKeys": {
-        "cart_owner_id_foreign": {
-          "constraintName": "cart_owner_id_foreign",
-          "columnNames": [
-            "owner_id"
-          ],
-          "localTableName": "public.cart",
-          "referencedColumnNames": [
-            "id"
-          ],
-          "referencedTableName": "public.customer",
+          "deleteRule": "set null",
           "updateRule": "cascade"
         }
       }
