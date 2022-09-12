@@ -2,12 +2,18 @@ import { http } from "../../../config/http.config";
 import { Product } from "../product.model";
 import { useQuery } from "react-query";
 
-type UseProductsArgs = { initialData: Product[] };
+type GetProductsQuery = { ids?: string[] };
 
-export const getProducts = () => {
-  return http.get<Product[]>("/products").then((response) => response.data);
+type UseProductsArgs = { initialData?: Product[]; query?: GetProductsQuery };
+
+export const getProducts = (query?: GetProductsQuery) => {
+  return http
+    .get<Product[]>("/products", { params: query })
+    .then((response) => response.data);
 };
 
-export const useProducts = ({ initialData }: UseProductsArgs) => {
-  return useQuery("products", () => getProducts(), { initialData });
+export const useProducts = ({ initialData, query }: UseProductsArgs) => {
+  return useQuery(["products", query], () => getProducts(query), {
+    initialData,
+  });
 };

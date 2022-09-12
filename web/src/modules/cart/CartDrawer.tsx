@@ -1,35 +1,19 @@
 import { useCartDrawer } from "./store/useCartDrawer";
 import { Button } from "../../common/ui/Button";
 import { Drawer } from "../../common/ui/Drawer";
-import { CartItem } from "./cart-item.model";
-import { CartDrawerItem } from "./CartDrawerItem";
-import { useLocalCart } from "./hooks/useLocalCart";
+import { UnauthenticatedCartDrawerList } from "./UnauthenticatedCartDrawerList";
 
 interface CartDrawerProps {
   onCheckout?: () => void;
-  cartItems?: CartItem[];
 }
 
-export const CartDrawer = ({ cartItems = [], onCheckout }: CartDrawerProps) => {
+export const CartDrawer = ({ onCheckout }: CartDrawerProps) => {
   const { isOpen, toggle } = useCartDrawer();
-  const { addOne, removeOne } = useLocalCart();
 
   return (
     <Drawer size="xl" isOpen={isOpen} onClose={toggle}>
       <div className="inline-flex flex-col gap-10 p-5 h-full">
-        <ul className="flex flex-grow flex-col gap-5">
-          {cartItems.map((cartItem) => (
-            <li key={cartItem.product.id}>
-              <CartDrawerItem
-                label={cartItem.product.label}
-                price={cartItem.product.price}
-                quantity={cartItem.quantity}
-                onIncrementQuantity={() => addOne(cartItem.product.id)}
-                onDecrementQuantity={() => removeOne(cartItem.product.id)}
-              />
-            </li>
-          ))}
-        </ul>
+        <UnauthenticatedCartDrawerList />
         <div className="flex flex-col gap-4">
           <div className="flex justify-between items-center">
             <p className="mr-auto inline text-lg">Total:</p>

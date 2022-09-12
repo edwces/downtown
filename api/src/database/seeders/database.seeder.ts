@@ -20,7 +20,15 @@ export class DatabaseSeeder extends Seeder {
       label: 'T-shirt',
       price: 19.99,
     });
+    const product2 = em.create(Product, {
+      label: 'irt',
+      price: 14.99,
+    });
+    const product3 = em.create(Product, {
+      label: 'shirt',
+      price: 219.99,
+    });
 
-    em.persist([customer, product, cart]);
+    em.persist([customer, product, cart, product2, product3]);
   }
 }

@@ -1,11 +1,10 @@
-import { Type, Transform } from 'class-transformer';
-import { IsArray, IsOptional, IsNumberString } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsArray, IsNumber, IsOptional } from 'class-validator';
 
 export class AllProductsRequestQuery {
   @IsOptional()
   @IsArray()
-  @IsNumberString({ each: true })
+  @IsNumber({}, { each: true })
   @Type(() => Number)
-  @Transform(({ value }) => value.split(','))
-  readonly ids: number[];
+  readonly ids?: number[];
 }
