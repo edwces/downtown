@@ -4,7 +4,11 @@ import { useQuery } from "react-query";
 
 type GetProductsQuery = { ids?: string[] };
 
-type UseProductsArgs = { initialData?: Product[]; query?: GetProductsQuery };
+type UseProductsArgs = {
+  initialData?: Product[];
+  query?: GetProductsQuery;
+  enabled?: boolean;
+};
 
 export const getProducts = (query?: GetProductsQuery) => {
   return http
@@ -12,8 +16,13 @@ export const getProducts = (query?: GetProductsQuery) => {
     .then((response) => response.data);
 };
 
-export const useProducts = ({ initialData, query }: UseProductsArgs) => {
+export const useProducts = ({
+  initialData,
+  query,
+  enabled,
+}: UseProductsArgs) => {
   return useQuery(["products", query], () => getProducts(query), {
     initialData,
+    enabled,
   });
 };

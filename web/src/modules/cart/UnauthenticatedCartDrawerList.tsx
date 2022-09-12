@@ -4,7 +4,11 @@ import { useLocalCart } from "./hooks/useLocalCart";
 
 export const UnauthenticatedCartDrawerList = () => {
   const { addOne, removeOne, localCart } = useLocalCart();
-  const { data } = useProducts({ query: { ids: Object.keys(localCart) } });
+
+  const { data } = useProducts({
+    query: { ids: Object.keys(localCart) },
+    enabled: !!Object.keys(localCart).length,
+  });
 
   return (
     <ul className="flex flex-grow flex-col gap-5">
