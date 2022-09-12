@@ -1,4 +1,4 @@
-import { useCartDrawer } from "../../common/store/useCartDrawer";
+import { useCartDrawer } from "./store/useCartDrawer";
 import { Button } from "../../common/ui/Button";
 import { Drawer } from "../../common/ui/Drawer";
 import { CartItem } from "./cart-item.model";
@@ -22,7 +22,7 @@ export const CartDrawer = ({ cartItems = [], onCheckout }: CartDrawerProps) => {
             <li key={cartItem.product.id}>
               <CartDrawerItem
                 label={cartItem.product.label}
-                price="200.99 $"
+                price={cartItem.product.price}
                 quantity={cartItem.quantity}
                 onIncrementQuantity={() => addOne(cartItem.product.id)}
                 onDecrementQuantity={() => removeOne(cartItem.product.id)}

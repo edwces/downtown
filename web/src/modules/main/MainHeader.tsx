@@ -1,5 +1,5 @@
 import { ShoppingBag } from "react-feather";
-import { useCartDrawer } from "../../common/store/useCartDrawer";
+import { useCartDrawer } from "../cart/store/useCartDrawer";
 import { Button } from "../../common/ui/Button";
 import { BrandLogo } from "./BrandLogo";
 

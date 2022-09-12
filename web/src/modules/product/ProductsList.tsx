@@ -15,7 +15,7 @@ export const ProductsList = ({ products = [] }: ProductsList) => {
         <li key={product.id}>
           <ProductItem
             label={product.label}
-            price="200.99 $"
+            price={product.price}
             onAddToCart={() => addOne(product.id)}
           />
         </li>
