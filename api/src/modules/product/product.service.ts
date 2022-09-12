@@ -2,6 +2,7 @@ import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityRepository } from '@mikro-orm/postgresql';
 import { Injectable } from '@nestjs/common';
 import { Product } from './product.entity';
+import { AllProductsRequestQuery } from './request/all-products.request.query';
 import { CreateProductRequestDTO } from './request/create-product.request.dto';
 
 @Injectable()
@@ -11,7 +12,14 @@ export class ProductService {
     private readonly productRepository: EntityRepository<Product>,
   ) {}
 
-  findAll() {
+  async findAll(query: AllProductsRequestQuery) {
+    if (query.ids) {
+      const products = await this.productRepository.find({
+        id: { $in: query.ids },
+      });
+      return products;
+    }
+
     return this.productRepository.findAll();
   }
 

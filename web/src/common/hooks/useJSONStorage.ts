@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 
-interface UseJSONStorageArgs {
+interface UseJSONStorageArgs<T> {
   key: string;
-  initial?: any;
+  initial?: T;
 }
 
-export const useJSONStorage = ({ key, initial }: UseJSONStorageArgs) => {
+export const useJSONStorage = <T>({
+  key,
+  initial,
+}: UseJSONStorageArgs<T>): [T, (newValue: T) => void] => {
   const getDefaultValue = () => {
     if (typeof window === "undefined") return "";
 
@@ -19,9 +22,9 @@ export const useJSONStorage = ({ key, initial }: UseJSONStorageArgs) => {
     return JSON.parse(value);
   };
 
-  const [value, setValue] = useState(() => getDefaultValue());
+  const [value, setValue] = useState<T>(() => getDefaultValue());
 
-  const setStorageValue = (newValue: any) => {
+  const setStorageValue = (newValue: T) => {
     setValue(newValue);
     localStorage.setItem(key, JSON.stringify(newValue));
   };

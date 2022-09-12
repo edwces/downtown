@@ -17,7 +17,7 @@ import { RemoveMyCartItemRequestDTO } from './request/remove-my-cart-item.reques
 export class MeController {
   constructor(private readonly cartService: CartService) {}
 
-  @Put('cart/add-item')
+  @Put('cart/add-product')
   addProductToMyCart(
     @User('id', ParseIntPipe) id: number,
     data: CreateMyCartItemRequestDTO,
@@ -28,7 +28,7 @@ export class MeController {
     });
   }
 
-  @Put('cart/remove-item')
+  @Put('cart/remove-product')
   removeProductFromMyCart(
     @User('id', ParseIntPipe) id: number,
     data: RemoveMyCartItemRequestDTO,
