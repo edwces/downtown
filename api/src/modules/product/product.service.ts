@@ -1,15 +1,30 @@
-import { EntityManager } from '@mikro-orm/postgresql';
-import { Product } from '../../db/entities/product/product.entity';
-import ResponseError from '../../errors/response-error';
-import { HTTP_STATUS } from '../../types/enums';
+import { InjectRepository } from '@mikro-orm/nestjs';
+import { EntityRepository } from '@mikro-orm/postgresql';
+import { Injectable } from '@nestjs/common';
+import { Product } from './product.entity';
+import { AllProductsRequestQuery } from './request/all-products.request.query';
+import { CreateProductRequestDTO } from './request/create-product.request.dto';
 
-const getProductById = async (em: EntityManager, id: number) => {
-  const product = await em.findOne(Product, id);
-  if (!product)
-    throw new ResponseError('Product not Found', HTTP_STATUS.NOT_FOUND);
-  return product;
-};
+@Injectable()
+export class ProductService {
+  constructor(
+    @InjectRepository(Product)
+    private readonly productRepository: EntityRepository<Product>,
+  ) {}
 
-export default {
-  getProductById,
-};
+  async findAll(query: AllProductsRequestQuery) {
+    if (query.ids) {
+      const products = await this.productRepository.find({
+        id: { $in: query.ids },
+      });
+      return products;
+    }
+
+    return this.productRepository.findAll();
+  }
+
+  async create(data: CreateProductRequestDTO) {
+    const product = this.productRepository.create(data);
+    await this.productRepository.persistAndFlush(product);
+  }
+}

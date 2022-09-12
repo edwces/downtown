@@ -1,5 +1,6 @@
 # Downtown
 
+<<<<<<< HEAD
 ## **Work in progress**
 
 e-commerce app built using next.js and express
@@ -17,3 +18,6 @@ e-commerce app built using next.js and express
 - [Mantine](https://mantine.dev/)
 - [Next.js](https://nextjs.org/)
 - [Stripe.js](https://stripe.com/docs/js)
+=======
+e-commerce built using next.js and nestjs
+>>>>>>> v2-dev

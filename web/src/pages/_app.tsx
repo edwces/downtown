@@ -1,26 +1,14 @@
-import type { AppProps } from 'next/app';
-import { MantineProvider } from '@mantine/core';
-import { QueryClientProvider } from 'react-query';
-import reactQueryClient from '../lib/react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import '../styles/global.css';
-import AuthProvider from '../modules/user/components/AuthProvider';
+import "../styles/globals.css";
+import type { AppType } from "next/dist/shared/lib/utils";
+import { QueryClientProvider } from "react-query";
+import { queryClient } from "../config/react-query.config";
 
-function MyApp({ Component, pageProps }: AppProps) {
+const MyApp: AppType = ({ Component, pageProps }) => {
   return (
-    <QueryClientProvider client={reactQueryClient}>
-      <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
-        theme={{ fontFamily: 'Inter, sans-serif', colorScheme: 'light' }}
-      >
-        <AuthProvider>
-          <Component {...pageProps} />
-        </AuthProvider>
-      </MantineProvider>
-      <ReactQueryDevtools />
+    <QueryClientProvider client={queryClient}>
+      <Component {...pageProps} />
     </QueryClientProvider>
   );
-}
+};
 
 export default MyApp;

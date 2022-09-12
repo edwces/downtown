@@ -1,63 +1,26 @@
-import { wrap } from '@mikro-orm/core';
-import { Request, Response } from 'express';
-import { Product } from '../../db/entities/product/product.entity';
-import { HTTP_STATUS } from '../../types/enums';
-import productService from './product.service';
+import {
+  Controller,
+  VERSION_NEUTRAL,
+  Get,
+  Post,
+  Body,
+  Query,
+} from '@nestjs/common';
+import { ProductService } from './product.service';
+import { AllProductsRequestQuery } from './request/all-products.request.query';
+import { CreateProductRequestDTO } from './request/create-product.request.dto';
 
-export const getProduct = async (request: Request, response: Response) => {
-  const sortColumn = request.query.sort_by;
-  const orderDirection = request.query.order;
+@Controller({ version: [VERSION_NEUTRAL, '1'], path: 'products' })
+export class ProductController {
+  constructor(private readonly productService: ProductService) {}
 
-  const qb = request.em.createQueryBuilder(Product, 'p').select('p.*');
-
-  if (sortColumn && orderDirection) {
-    qb.orderBy({ [String(sortColumn)]: orderDirection });
+  @Get()
+  findAll(@Query() query: AllProductsRequestQuery) {
+    return this.productService.findAll(query);
   }
 
-  const products = await qb.getResult();
-
-  response.json(products);
-};
-
-export const getProductById = async (request: Request, response: Response) => {
-  const id = Number.parseInt(request.params.id!);
-
-  const product = await productService.getProductById(request.em, id);
-
-  response.json(product);
-};
-
-export const createProduct = async (request: Request, response: Response) => {
-  const productData = request.body;
-
-  const product = request.em.create(Product, productData);
-  await request.em.persistAndFlush(product);
-
-  response.status(HTTP_STATUS.CREATED).json(product);
-};
-
-export const deleteProductById = async (
-  request: Request,
-  response: Response
-) => {
-  const id = Number.parseInt(request.params.id!);
-
-  const product = await productService.getProductById(request.em, id);
-  await request.em.removeAndFlush(product);
-
-  response.json({ succes: true });
-};
-
-export const updateProductById = async (
-  request: Request,
-  response: Response
-) => {
-  const id = Number.parseInt(request.params.id!);
-  const productData = request.body;
-
-  const product = await productService.getProductById(request.em, id);
-  wrap(product).assign(productData);
-  await request.em.flush();
-
-  response.json(product);
-};
+  @Post()
+  create(@Body() data: CreateProductRequestDTO) {
+    return this.productService.create(data);
+  }
+}
