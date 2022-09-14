@@ -1,6 +1,6 @@
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
-import { CartDrawer } from "../modules/cart/CartDrawer";
+import { UnauthenticatedCartDrawer } from "../modules/cart/UnauthenticatedCartDrawer";
 import { MainLayout } from "../modules/main/MainLayout";
 import { getProducts, useProducts } from "../modules/product/api/useProducts";
 import { Product } from "../modules/product/product.model";
@@ -22,7 +22,7 @@ const Home: NextPage<HomeProps> = ({ products }) => {
       <MainLayout>
         <ProductsList products={data} />
       </MainLayout>
-      <CartDrawer />
+      <UnauthenticatedCartDrawer />
     </>
   );
 };

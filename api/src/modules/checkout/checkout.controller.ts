@@ -1,5 +1,4 @@
-import { Controller, VERSION_NEUTRAL, Post, Res, Body } from '@nestjs/common';
-import { Response } from 'express';
+import { Controller, VERSION_NEUTRAL, Post, Body } from '@nestjs/common';
 import { ProductService } from '../product/product.service';
 import { CheckoutService } from './checkout.service';
 import { CreateCheckoutSessionDTO } from './request/create-checkout-session.request.dto';
@@ -12,10 +11,7 @@ export class CheckoutController {
   ) {}
 
   @Post()
-  async createSession(
-    @Res({ passthrough: true }) response: Response,
-    @Body() data: CreateCheckoutSessionDTO,
-  ) {
+  async createSession(@Body() data: CreateCheckoutSessionDTO) {
     const ids = data.items.map((item) => item.id);
     const products = await this.productService.findAll({
       ids,
@@ -25,6 +21,6 @@ export class CheckoutController {
       quantity: item.quantity,
     }));
     const session = await this.checkoutService.createSession(items);
-    response.redirect(session.url);
+    return { url: session.url };
   }
 }
