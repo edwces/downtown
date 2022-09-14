@@ -6,6 +6,7 @@ import { LoggingMiddleware } from './common/middlewares/logger.middleware';
 import mikroOrmConfig from './config/mikro-orm.config';
 import { AuthModule } from './modules/auth/auth.module';
 import { CartModule } from './modules/cart/cart.module';
+import { CheckoutModule } from './modules/checkout/checkout.module';
 import { CustomerModule } from './modules/customer/customer.module';
 import { MeModule } from './modules/me/me.module';
 import { ProductModule } from './modules/product/product.module';
@@ -25,6 +26,7 @@ import { StripeModule } from './modules/stripe/stripe.module';
     ProductModule,
     CartModule,
     AuthModule,
+    CheckoutModule,
     MeModule,
   ],
   controllers: [],

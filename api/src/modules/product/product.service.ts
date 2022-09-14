@@ -1,6 +1,6 @@
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityRepository } from '@mikro-orm/postgresql';
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { Product } from './product.entity';
 import { AllProductsRequestQuery } from './request/all-products.request.query';
 import { CreateProductRequestDTO } from './request/create-product.request.dto';
@@ -17,6 +17,8 @@ export class ProductService {
       const products = await this.productRepository.find({
         id: { $in: query.ids },
       });
+      if (products.length !== query.ids.length)
+        throw new BadRequestException('Invalid Ids were passed');
       return products;
     }
 

@@ -29,4 +29,5 @@ export default {
   findOneOrFailHandler: (entityName) => {
     throw new NotFoundException(`${entityName} was not found`);
   },
+  debug: process.env.DB_DEBUG === 'true',
 } as MikroOrmModuleSyncOptions;
