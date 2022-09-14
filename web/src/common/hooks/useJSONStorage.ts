@@ -10,13 +10,13 @@ export const useJSONStorage = <T>({
   initial,
 }: UseJSONStorageArgs<T>): [T, (newValue: T) => void] => {
   const getDefaultValue = () => {
-    if (typeof window === "undefined") return "";
+    if (typeof window === "undefined") return initial || {};
 
     const value = localStorage.getItem(key);
     // when key has not been created yet create one
     if (value === null || value === "") {
       localStorage.setItem(key, JSON.stringify(initial || {}));
-      return initial;
+      return initial || {};
     }
 
     return JSON.parse(value);

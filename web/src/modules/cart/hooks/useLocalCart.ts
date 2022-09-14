@@ -1,26 +1,34 @@
 import { useJSONStorage } from "../../../common/hooks/useJSONStorage";
-
-type LocalCart = Record<number, number>;
+import { CheckoutItem } from "../cart.types";
 
 export const useLocalCart = () => {
   const [localCart, setLocalCart] = useJSONStorage({
     key: "local_cart",
-    initial: {} as LocalCart,
+    initial: [] as CheckoutItem[],
   });
 
   const addOne = (id: number) => {
-    if (!localCart[id]) setLocalCart({ ...localCart, [id]: 1 });
-    else setLocalCart({ ...localCart, [id]: localCart[id]! + 1 });
+    const copy = [...localCart];
+    const index = localCart.findIndex((item) => item.id === id);
+    console.log({ copy, index });
+
+    if (!copy[index]) {
+      copy.push({ id, quantity: 1 });
+    } else if (copy[index]) {
+      copy[index]!.quantity += 1;
+    }
+    setLocalCart(copy);
   };
 
   const removeOne = (id: number) => {
-    if (!localCart[id]) throw new Error("Id of product does not exist");
-    if (localCart[id]! - 1 === 0) {
-      const { [id]: removedId, ...rest } = localCart;
-      setLocalCart(rest);
-    } else {
-      setLocalCart({ ...localCart, [id]: localCart[id]! - 1 });
-    }
+    const copy = [...localCart];
+    const index = localCart.findIndex((item) => item.id === id);
+    if (!copy[index]) throw new Error("Id of product does not exist");
+    copy[index]!.quantity -= 1;
+
+    if (localCart[index]!.quantity <= 0) copy.splice(index, 1);
+
+    setLocalCart(copy);
   };
 
   return { localCart, addOne, removeOne };
