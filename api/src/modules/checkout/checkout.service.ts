@@ -17,6 +17,8 @@ export class CheckoutService {
     private readonly configService: ConfigService<EnvironmentVariables>,
   ) {}
 
+  // TODO: Enforce a better interface because this method
+  // is used both with CartItem and Transformed DTO's
   async createSession(lineItems: CheckoutItem[]) {
     const session = await this.stripe.checkout.sessions.create({
       line_items: lineItems.map((item) => {

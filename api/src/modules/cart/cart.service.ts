@@ -16,7 +16,10 @@ export class CartService {
   ) {}
 
   findOneByOwner(ownerId: number) {
-    return this.cartRepository.findOne({ owner: ownerId });
+    return this.cartRepository.findOne(
+      { owner: ownerId },
+      { populate: ['items', 'items.product'] },
+    );
   }
 
   private findOneItemByOwnerAndProduct(ownerId: number, productId: number) {

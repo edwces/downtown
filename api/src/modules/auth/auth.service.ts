@@ -25,7 +25,7 @@ export class AuthService {
 
   async signUp(data: SignUpRequestDTO) {
     const customer = this.customerRepository.create(data);
-    customer.setPassword(data.password);
+    await customer.setPassword(data.password);
     const cart = this.cartRepository.create({ owner: customer });
     await this.customerRepository.persistAndFlush([customer, cart]);
   }
