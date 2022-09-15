@@ -3,7 +3,7 @@ import { http } from "../../../config/http.config";
 import { SignUpRequestDTO } from "../request.schemas";
 
 const signUp = (data: SignUpRequestDTO) => {
-  return http.post("auth/sign-up", data);
+  return http.post<void>("auth/sign-up", data);
 };
 
 export const useSignUpMutation = () => {
