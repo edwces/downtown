@@ -1,4 +1,9 @@
-import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from "react";
+import {
+  ButtonHTMLAttributes,
+  DetailedHTMLProps,
+  forwardRef,
+  ReactNode,
+} from "react";
 import { cls } from "../utils/cls";
 
 type ButtonProps = DetailedHTMLProps<
@@ -9,25 +14,23 @@ type ButtonProps = DetailedHTMLProps<
   children?: ReactNode;
 };
 
-export const Button = ({
-  variant = "filled",
-  children,
-  className,
-  ...props
-}: ButtonProps) => {
-  return (
-    <button
-      className={cls(
-        "transition ease-in-out duration-150 p-2",
-        variant === "filled" &&
-          "bg-primary text-white hover:bg-primary-800 active:bg-primary-600",
-        variant === "outline" &&
-          "border-[1px] border-primary-300 hover:bg-primary-100 active:bg-primary-200",
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-};
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ variant = "filled", children, className, ...props }, forwardedRef) => {
+    return (
+      <button
+        className={cls(
+          "transition ease-in-out duration-150 p-2",
+          variant === "filled" &&
+            "bg-primary text-white hover:bg-primary-800 active:bg-primary-600",
+          variant === "outline" &&
+            "border-[1px] border-primary-300 hover:bg-primary-100 active:bg-primary-200",
+          className
+        )}
+        ref={forwardedRef}
+        {...props}
+      >
+        {children}
+      </button>
+    );
+  }
+);
