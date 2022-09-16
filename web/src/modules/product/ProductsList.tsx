@@ -1,14 +1,15 @@
-import { useLocalCart } from "../cart/hooks/useLocalCart";
 import { Product } from "./product.model";
 import { ProductItem } from "./ProductItem";
 
 interface ProductsList {
   products?: Product[];
+  onAddProductToCart: (id: number) => void;
 }
 
-export const ProductsList = ({ products = [] }: ProductsList) => {
-  const { addOne } = useLocalCart();
-
+export const ProductsList = ({
+  products = [],
+  onAddProductToCart,
+}: ProductsList) => {
   return (
     <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
       {products.map((product) => (
@@ -16,7 +17,7 @@ export const ProductsList = ({ products = [] }: ProductsList) => {
           <ProductItem
             label={product.label}
             price={product.price}
-            onAddToCart={() => addOne(product.id)}
+            onAddToCart={() => onAddProductToCart(product.id)}
           />
         </li>
       ))}
