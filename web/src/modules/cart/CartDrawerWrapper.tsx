@@ -26,7 +26,7 @@ export const CartDrawerWrapper = ({
           <div className="flex justify-between items-center">
             <p className="mr-auto inline text-lg">Total:</p>
             <p className="ml-auto text-xl font-extrabold">
-              {totalPrice ? currencyFormatter.format(totalPrice) : null}
+              {currencyFormatter.format(totalPrice || 0)}
             </p>
           </div>
           <Button onClick={onCheckout}>Checkout</Button>

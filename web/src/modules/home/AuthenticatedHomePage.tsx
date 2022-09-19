@@ -1,5 +1,6 @@
 import { useAuthInterceptors } from "../auth/hooks/useAuthInterceptors";
 import { useAddProductToCartMutation } from "../cart/api/useAddProductToCartMutation";
+import { AuthenticatedCartDrawer } from "../cart/AuthenticatedCartDrawer";
 import { MainLayout } from "../main/MainLayout";
 import { useProducts } from "../product/api/useProducts";
 import { Product } from "../product/product.model";
@@ -24,6 +25,7 @@ export const AuthenticatedHomePage = ({
           }
         />
       </MainLayout>
+      <AuthenticatedCartDrawer />
     </>
   );
 };
