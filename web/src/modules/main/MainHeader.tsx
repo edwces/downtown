@@ -5,8 +5,11 @@ import { BrandLogo } from "./BrandLogo";
 import { Popover } from "../../common/ui/Popover";
 import { useState } from "react";
 import { UnauthenticatedAccountPopover } from "./UnauthenticatedAccountPopover";
+import { useSession } from "../auth/store/useSession";
+import { AuthenticatedAccountPopover } from "./AuthenticatedAccountPopover";
 
 export const MainHeader = () => {
+  const status = useSession((state) => state.status);
   const [isPopoverOpen, setPopoverOpen] = useState(false);
   const toggle = useCartDrawer((state) => state.toggle);
 
@@ -26,7 +29,11 @@ export const MainHeader = () => {
               </Button>
             }
           >
-            <UnauthenticatedAccountPopover />
+            {status === "signIn" ? (
+              <AuthenticatedAccountPopover />
+            ) : (
+              <UnauthenticatedAccountPopover />
+            )}
           </Popover>
           <Button variant="unstyled" onClick={toggle}>
             <ShoppingBag />
