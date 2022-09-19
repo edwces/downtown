@@ -1,6 +1,6 @@
-import { IsNumberString } from 'class-validator';
+import { IsNumber } from 'class-validator';
 
 export class CreateCartItemRequestDTO {
-  @IsNumberString() readonly ownerId: number;
-  @IsNumberString() readonly productId: number;
+  @IsNumber() readonly ownerId: number;
+  @IsNumber() readonly productId: number;
 }

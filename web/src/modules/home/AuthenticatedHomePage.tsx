@@ -1,3 +1,5 @@
+import { useAuthInterceptors } from "../auth/hooks/useAuthInterceptors";
+import { useAddProductToCartMutation } from "../cart/api/useAddProductToCartMutation";
 import { MainLayout } from "../main/MainLayout";
 import { useProducts } from "../product/api/useProducts";
 import { Product } from "../product/product.model";
@@ -8,14 +10,18 @@ type AuthenticatedHomePageProps = { products: Product[] };
 export const AuthenticatedHomePage = ({
   products,
 }: AuthenticatedHomePageProps) => {
+  useAuthInterceptors();
   const { data } = useProducts({ initialData: products });
+  const addProductToCart = useAddProductToCartMutation();
 
   return (
     <>
       <MainLayout>
         <ProductsList
           products={data}
-          onAddProductToCart={() => console.log("Added to account cart")}
+          onAddProductToCart={(id) =>
+            addProductToCart.mutate({ productId: id })
+          }
         />
       </MainLayout>
     </>
