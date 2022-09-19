@@ -10,6 +10,6 @@ const addProductToCart = (data: AddProductToCartDTO) => {
 export const useAddProductToCartMutation = () => {
   const queryClient = useQueryClient();
   return useMutation((data: AddProductToCartDTO) => addProductToCart(data), {
-    onSuccess: () => queryClient.invalidateQueries("me/cart"),
+    onSuccess: () => queryClient.invalidateQueries(["me", "cart"]),
   });
 };
