@@ -10,4 +10,8 @@ export interface EnvironmentVariables {
 
   STRIPE_PRIVATE_KEY: string;
   WEB_FRONTEND_URL: string;
+
+  CLOUDINARY_API_KEY: string;
+  CLOUDINARY_API_SECRET: string;
+  CLOUDINARY_API_NAME: string;
 }

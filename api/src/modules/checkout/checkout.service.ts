@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { EnvironmentVariables } from 'src/common/interfaces/environment-variables.interface';
+import { EnvironmentVariables } from '../../common/interfaces/environment-variables.interface';
+import { InjectStripe } from '../../common/providers/stripe/inject-stripe.decorator';
 import Stripe from 'stripe';
 import { Product } from '../product/product.entity';
-import { InjectStripe } from '../stripe/inject-stripe.decorator';
 
 interface CheckoutItem {
   product: Product;
