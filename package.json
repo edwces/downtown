@@ -1,0 +1,19 @@
+{
+  "name": "downtown",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/edwces/downtown.git",
+  "author": "edwces <68016750+EdwinC0@users.noreply.github.com>",
+  "license": "MIT",
+  "private": "true",
+  "workspaces": [
+    "api",
+    "web"
+  ],
+  "devDependencies": {
+    "husky": "^8.0.1"
+  },
+  "scripts": {
+    "postinstall": "husky install"
+  }
+}
