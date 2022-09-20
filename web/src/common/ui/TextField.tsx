@@ -23,3 +23,5 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     );
   }
 );
+
+TextField.displayName = "TextField";

@@ -1,13 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProductController } from './product.controller';
 import { ProductService } from './product.service';
+import { AllProductsRequestQuery } from './request/all-products.request.query';
 import { CreateProductRequestDTO } from './request/create-product.request.dto';
 
 describe('ProductController', () => {
   let controller: ProductController;
 
   const mockProductService = {
-    findAll: jest.fn(() => Promise.resolve([])),
+    findAll: jest.fn((query: AllProductsRequestQuery) => Promise.resolve([])),
     create: jest.fn((data: CreateProductRequestDTO) => Promise.resolve()),
   };
 
@@ -33,7 +34,7 @@ describe('ProductController', () => {
 
   describe('GET /', () => {
     it('when called should provide array of Products', async () => {
-      const result = await controller.findAll();
+      const result = await controller.findAll({});
       expect(result).toEqual([]);
       expect(mockProductService.findAll).toBeCalledTimes(1);
     });
