@@ -15,7 +15,7 @@ const sizeToStyle = {
   sm: 264,
   md: 296,
   lg: 358,
-  xl: 410,
+  xl: 450,
 };
 
 export const Drawer = ({

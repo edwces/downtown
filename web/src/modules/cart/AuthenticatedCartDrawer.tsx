@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { cloudinary } from "../../config/cloudinary.config";
 import { useAddProductToCartMutation } from "./api/useAddProductToCartMutation";
 import { useCheckoutMutation } from "./api/useCheckoutMutation";
 import { useRemoveProductFromCartMutation } from "./api/useRemoveProductFromCartMutation";
@@ -38,7 +39,7 @@ export const AuthenticatedCartDrawer = () => {
       totalPrice={totalPrice}
       onCheckout={handleCheckout}
     >
-      <ul className="flex flex-grow flex-col gap-5">
+      <ul className="flex flex-grow flex-col gap-10">
         {data &&
           data.items.map((item) => (
             <li key={item.id}>
@@ -46,6 +47,7 @@ export const AuthenticatedCartDrawer = () => {
                 label={item.product.label}
                 price={item.product.price}
                 quantity={item.quantity}
+                src={cloudinary.image(item.product.image.path).toURL()}
                 onIncrementQuantity={() =>
                   addProductToCart.mutate({ productId: item.product.id })
                 }

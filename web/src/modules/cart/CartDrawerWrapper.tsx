@@ -20,7 +20,7 @@ export const CartDrawerWrapper = ({
 }: CartDrawerWrapperProps) => {
   return (
     <Drawer size="xl" isOpen={isOpen} onClose={onClose}>
-      <div className="inline-flex flex-col gap-10 p-5 h-full">
+      <div className="inline-flex flex-col gap-10 p-5 pt-10 h-full">
         {children}
         <div className="flex flex-col gap-4">
           <div className="flex justify-between items-center">

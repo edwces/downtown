@@ -5,6 +5,7 @@ import { useLocalCart } from "./hooks/useLocalCart";
 import { useCheckoutMutation } from "./api/useCheckoutMutation";
 import { CartDrawerWrapper } from "./CartDrawerWrapper";
 import { useMemo } from "react";
+import { cloudinary } from "../../config/cloudinary.config";
 
 export const UnauthenticatedCartDrawer = () => {
   const { isOpen, toggle } = useCartDrawer();
@@ -38,13 +39,14 @@ export const UnauthenticatedCartDrawer = () => {
       totalPrice={totalPrice}
       onCheckout={handleCheckout}
     >
-      <ul className="flex flex-grow flex-col gap-5">
+      <ul className="flex flex-grow flex-col gap-10">
         {data &&
           data.map((product) => (
             <li key={product.id}>
               <CartDrawerItem
                 label={product.label}
                 price={product.price}
+                src={cloudinary.image(product.image.path).toURL()}
                 quantity={
                   localCart.find((item) => item.id === product.id)!.quantity
                 }
