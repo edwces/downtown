@@ -44,6 +44,9 @@ describe('ProductController', () => {
       const result = await controller.create({
         label: 't-shirt',
         price: 19.99,
+        image: {
+          path: 'cld-sample-1',
+        },
       });
       expect(result).toBeUndefined();
       expect(mockProductService.create).toBeCalledTimes(1);

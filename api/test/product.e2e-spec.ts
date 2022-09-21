@@ -1,7 +1,7 @@
 import { MikroORM } from '@mikro-orm/core';
 import { INestApplication, HttpStatus } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { Product } from '../src/modules/product/product.entity';
+import { Product } from '../src/modules/product/entities/product.entity';
 import request from 'supertest';
 import { AppModule } from '../src/app.module';
 

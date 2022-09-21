@@ -1,6 +1,6 @@
 import { EntityManager } from '@mikro-orm/core';
 import { Seeder } from '@mikro-orm/seeder';
-import { Product } from '../../modules/product/product.entity';
+import { Product } from '../../modules/product/entities/product.entity';
 import { Customer } from '../../modules/customer/customer.entity';
 import { Cart } from '../../../src/modules/cart/entities/cart.entity';
 
@@ -19,14 +19,23 @@ export class DatabaseSeeder extends Seeder {
     const product = em.create(Product, {
       label: 'T-shirt',
       price: 19.99,
+      image: {
+        path: 'cld-sample-5',
+      },
     });
     const product2 = em.create(Product, {
       label: 'irt',
       price: 14.99,
+      image: {
+        path: 'cld-sample-4',
+      },
     });
     const product3 = em.create(Product, {
       label: 'shirt',
       price: 219.99,
+      image: {
+        path: 'cld-sample-3',
+      },
     });
 
     em.persist([customer, product, cart, product2, product3]);

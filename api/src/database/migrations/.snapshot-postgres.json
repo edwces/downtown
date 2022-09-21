@@ -220,6 +220,15 @@
           "precision": 12,
           "scale": 2,
           "mappedType": "decimal"
+        },
+        "image_path": {
+          "name": "image_path",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
         }
       },
       "name": "product",

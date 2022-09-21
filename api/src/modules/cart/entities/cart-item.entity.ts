@@ -6,7 +6,7 @@ import {
   Unique,
 } from '@mikro-orm/core';
 import { Basic } from '../../../common/basic.entity';
-import { Product } from '../../../modules/product/product.entity';
+import { Product } from '../../../modules/product/entities/product.entity';
 import { Cart } from './cart.entity';
 
 @Entity()

@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { EnvironmentVariables } from '../../common/interfaces/environment-variables.interface';
 import { InjectStripe } from '../../common/providers/stripe/inject-stripe.decorator';
 import Stripe from 'stripe';
-import { Product } from '../product/product.entity';
+import { Product } from '../product/entities/product.entity';
 
 interface CheckoutItem {
   product: Product;

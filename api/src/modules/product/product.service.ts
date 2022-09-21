@@ -1,7 +1,7 @@
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityRepository } from '@mikro-orm/postgresql';
 import { Injectable, BadRequestException } from '@nestjs/common';
-import { Product } from './product.entity';
+import { Product } from './entities/product.entity';
 import { AllProductsRequestQuery } from './request/all-products.request.query';
 import { CreateProductRequestDTO } from './request/create-product.request.dto';
 
