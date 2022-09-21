@@ -1,3 +1,4 @@
+import { cloudinary } from "../../config/cloudinary.config";
 import { Product } from "./product.model";
 import { ProductItem } from "./ProductItem";
 
@@ -17,6 +18,8 @@ export const ProductsList = ({
           <ProductItem
             label={product.label}
             price={product.price}
+            src={cloudinary.image(product.image.path).toURL()}
+            alt={product.image.path}
             onAddToCart={() => onAddProductToCart(product.id)}
           />
         </li>
